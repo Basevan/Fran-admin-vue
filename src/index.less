@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/*清除浮动*/
+.clear:after {
+  clear: both;
+  display: table;
+  content: "";
+}
+
+/*IE浏览器的专有属性，触发ie的hasLayout属性，清除浮动*/
+.clear {
+  *zoom: 1;
+}
