@@ -1,6 +1,6 @@
-# ossWeb
+# Fran-admin-vue
 
-> My graduation project Using Vue and Element-UI Using SpringBoot Spring+MybatisPlus
+> My graduation project Using Vue+Element-UI and SpringBoot
 
 ## Build Setup
 
