@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
+import Vuex from 'vuex';
+import menuModule from './menu/index'
 
 Vue.use(Vuex)
 
@@ -9,6 +10,8 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    loading: false,
+    navCollapse: document.body.clientWidth < 1450 || false,
     count: 0,
     domain: '',
     allData: []
@@ -28,10 +31,25 @@ const store = new Vuex.Store({
     },
     setAllData(state,val){
       state.allData = val;
-    }
+    },
+    // 菜单隐藏显示
+    setCollapse(state, payload) {
+      if (payload) {
+        state.navCollapse = payload;
+      } else {
+        state.navCollapse = !state.navCollapse;
+      }
+    },
   },
 
-  getters,
+  getters: {
+    getCount: state => {
+      return state.count;
+    }
+  },
+  modules: {
+    menuModule,
+  }
 
 });
 

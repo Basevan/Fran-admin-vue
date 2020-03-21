@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <!-- 树形菜单 -->
     <div class="tree-box" >
       <el-tree :data="treeList" :props="defaultProps" accordion @node-click="handleNodeClick">
@@ -95,9 +94,11 @@
 
 <script>
     import axios from 'axios';
+    import Loading from "../../components/common/Loading";
     export default {
         name: "Edit",
-        props: [
+      components: {Loading},
+      props: [
         ],
         data(){
             return{
@@ -125,6 +126,9 @@
             }
         },
         created(){
+          setTimeout(() => {
+
+          },1000);
             axios.get('http://localhost:8110/menu/getAllMenu').then(res=>{
                 let list = res.data.data.menus;
                 this.changeToTree(list);

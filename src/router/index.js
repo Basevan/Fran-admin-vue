@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../components/home/Home'
-import First from '../components/form/First'
-import Second from "../components/form/Second";
-import HomePage from "../components/home/HomePage";
-import MyMessage from "../components/myMessage/MyMessage";
+import Home from '../views/home/Home'
+import First from '../views/form/First'
+import Second from "../views/form/Second";
+import HomePage from "../views/home/HomePage";
+import MyMessage from "../views/myMessage/MyMessage";
 
 
 Vue.use(Router)
@@ -17,10 +17,17 @@ const router = [
     component: Vue,
   },
   {
+    path: '/homepage',
+    mete: {
+      title: '首页'
+    },
+    component: () => import('../views/layout/layout'),
+  },
+  {
     path: '/home',
     name: 'home',
     redirect: '/homepage',
-    component: () => import('../components/home/Layout'),
+    component: () => import('../views/home/Layout'),
     children: [
       {
         path: '/homepage',
@@ -41,17 +48,17 @@ const router = [
       {
         path: '/edit',
         redirect: '/edit/editMenu',
-        component: () => import('../components/editMenu/Layout'),
+        component: () => import('../views/editMenu/Layout'),
         children: [
           {
             path: '/edit/add',
             name: 'add',
-            component: () => import('../components/editMenu/Create'),
+            component: () => import('../views/editMenu/Create'),
           },
           {
             path: '/edit/tree',
             name: 'editTree',
-            component: () => import('../components/editMenu/EditTree'),
+            component: () => import('../views/editMenu/EditTree'),
             meta: {
               title: '编辑'
             },
@@ -59,14 +66,14 @@ const router = [
               {
                 path: '/edit/edit',
                 name: 'edit',
-                component: () => import('../components/editMenu/Edit')
+                component: () => import('../views/editMenu/Edit')
               }
             ]
           },
           {
             path: '/edit/editMenu',
             name: 'editMenu',
-            component: () => import('../components/editMenu/EditMenu'),
+            component: () => import('../views/editMenu/EditMenu'),
             meta: {
               title: '编辑'
             },
@@ -74,12 +81,12 @@ const router = [
           {
             path: '/edit/newAdd',
             name: 'addNewImpl',
-            component: () => import('../components/editMenu/CreateNewImpl')
+            component: () => import('../views/editMenu/CreateNewImpl')
           },
           {
             path: '/testForm',
             name: 'test',
-            component: () => import('../components/form/testForm')
+            component: () => import('../views/form/testForm')
           }
         ]
       },
@@ -91,7 +98,7 @@ const router = [
       {
         path: '/myProcess',
         name: 'myProcess',
-        component: () => import('../components/myProcess/MyProcess')
+        component: () => import('../views/myProcess/MyProcess')
       },
       {
         path: '/second',
@@ -103,7 +110,7 @@ const router = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('../components/login/login'),
+    component: () => import('../views/login/login'),
     meta: {
       title: '登录'
     }
@@ -111,7 +118,7 @@ const router = [
   {
     path: '/editMenu',
     name: 'editMenu',
-    component: () => import('../components/form/Second')
+    component: () => import('../views/form/Second')
   },
 ];
 

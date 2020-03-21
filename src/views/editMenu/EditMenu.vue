@@ -399,15 +399,15 @@
                     temp1.type = form;
                     temp1.level = 3;
                     temp1.children = [];
-                    if (element.subMenus != null){
-                        element.subMenus.forEach( el =>{
+                    if (element.sub_menus != null){
+                        element.sub_menus.forEach( el =>{
                             let form = el.type === 0 ? '目录' : '菜单';
                             let temp2 = el;
                             temp2.type = form;
                             temp2.level = 2;
                             temp2.children = [];
-                            if (el.subMenus != null){
-                                el.subMenus.forEach( elem => {
+                            if (el.sub_menus != null){
+                                el.sub_menus.forEach( elem => {
                                     let temp3 = elem;
                                     temp3.type = "菜单";
                                     temp3.level = 1;

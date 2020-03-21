@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Header from "./components/home/Header";
+import Header from "./views/home/Header";
 export default {
   name: 'App',
     components: {Header},

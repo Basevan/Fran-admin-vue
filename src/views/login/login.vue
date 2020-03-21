@@ -4,8 +4,10 @@
          element-loading-spinner="el-icon-loading"
          element-loading-background="rgba(0, 0, 0, 0.8)">
 
+      <el-image :src="srcArr[0]" fit="fill"></el-image>
+
       <div class="description-box">
-        <h1 style="font-family: Arial;color: whitesmoke">Fran</h1>
+        <h1 style="font-family: Arial;color: whitesmoke">Fran Admin</h1>
         <p>@SpringBoot</p>
         <p>@Vue</p>
         <p>@Element-UI</p>
@@ -41,7 +43,8 @@
               </el-col>
               <el-col :span="2"></el-col>
               <el-col :offset="2" :span="8">
-                <canvas id="code-canvas" width="100px" height="36px" style="border: 1px solid #ccc;border-radius: 5px;" @click="createCanvas"></canvas>
+<!--                验证-->
+<!--                <canvas id="code-canvas" width="100px" height="36px" style="border: 1px solid #ccc;border-radius: 5px;" @click="createCanvas"></canvas>-->
               </el-col>
               <el-col :span="4">
                 <label style="color: #bfbfbf; font-size: smaller">看不清？点击图片</label>
@@ -62,7 +65,7 @@
             </el-row>
             <el-row>
               <el-col :offset="5">
-                <label style="color: grey; font-size: smaller;">© 2019 All Rights Reserved. TFran</label>
+                <label style="color: whitesmoke; font-size: smaller;">© 2019 All Rights Reserved. TFran</label>
               </el-col>
             </el-row>
           </el-form>
@@ -82,13 +85,18 @@
 </template>
 
 <script>
-
     import axios from 'axios';
 
     export default {
         name: "login",
+
         data() {
             return {
+              msg: '',
+              text: '向右滑',
+              // 精确度小，可允许的误差范围小；为1时，则表示滑块要与凹槽完全重叠，才能验证成功。默认值为5
+              accuracy: 1,
+                src: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
                 loading: false,
                 code: '',
                 inputCode: '',
@@ -99,6 +107,16 @@
                     password: '',
                 },
                 checked: '',
+                srcArr: [
+                  'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+                  'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
+                  'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
+                  'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
+                  'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
+                  'https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg',
+                  'https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg',
+                  'https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg'
+                ],
                 imgArr: [
                     '../../assets/background/aurora01.jpg',
                     '../../assets/background/aurora02.jpg',
@@ -108,10 +126,16 @@
                     '../../assets/background/light.jpg',
                     '../../assets/background/mapleLeaf.jpg',
                 ],
-                index: 3,
+                index: 0,
                 path: '../../assets/background/background-sea.jpg',
             };
         },
+      created() {
+
+      },
+      computed: {
+
+      },
         methods: {
             submitForm() {
                 this.loading = true;
@@ -197,9 +221,14 @@
                 return "rgb(" + r + "," + g + "," + b + ")";
             },
             nextBackgroundImg() {
-                let index = Math.floor(Math.random() * 7);
-                this.index = index;
-                console.log(index)
+                // let index = Math.floor(Math.random() * 7);
+                // this.index = index;
+                // console.log(index)
+              let arr = this.srcArr.length;
+              if (this.index > arr) {
+                this.index = 0;
+              }
+              this.index++;
             },
 
             resetForm(formName) {
@@ -224,18 +253,17 @@
     left: 0;
     width:100%;
     height:100%;
-    background-image: url('../../assets/background/light.jpg');
-    background-size: cover;
-    background-repeat:no-repeat;
-    background-position:center;
-    background-attachment:fixed;
+    /*background-image: url('../../assets/background/light.jpg');*/
+    /*background-size: cover;*/
+    /*background-repeat:no-repeat;*/
+    /*background-position:center;*/
+    /*background-attachment:fixed;*/
   }
   .description-box {
-    position: relative;
+    position: absolute;
     top: 25%;
     left: 25%;
-    width: 400px;
-    height: 400px;
+
   }
   .login-box{
     border: 1px solid #A9C9E2;

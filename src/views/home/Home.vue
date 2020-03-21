@@ -8,7 +8,7 @@
     <div class="menu-box" :style=" 'height:' + height + 'px;' ">
       <el-menu default-active="1" class="el-menu-vertical-demo" :unique-opened="true" :collapse="isCollapse" background-color="#475d6c" text-color="#fff" active-text-color="#ffd04b">
         <template v-for="item in list.menus" >
-          <el-submenu :index="item.name" v-if="!item.type && item.subMenus">
+          <el-submenu :index="item.name" v-if="!item.type && item.sub_menus">
             <template slot="title">
               <i :class="item.icon"></i>
               <span slot="title">
@@ -16,7 +16,7 @@
                 </span>
             </template>
 
-            <template v-for="child_item in item.subMenus">
+            <template v-for="child_item in item.sub_menus">
               <el-menu-item v-if="child_item.type" :index="child_item.name" @click="handleLink(item.domain,child_item.uri,child_item.name)">
                 <span>&nbsp; {{child_item.name}}</span>
               </el-menu-item>
@@ -24,7 +24,7 @@
                 <template slot="title">
                   <span>&nbsp;  {{child_item.name}}</span>
                 </template>
-                <div v-for="grandchild_item in child_item.subMenus">
+                <div v-for="grandchild_item in child_item.sub_menus">
                   <el-menu-item v-if="grandchild_item.type" :index="grandchild_item.name" @click="handleLink(item.domain,grandchild_item.uri,grandchild_item.name)">
                     <span>&nbsp;  {{grandchild_item.name}}</span>
                   </el-menu-item>

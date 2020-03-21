@@ -8,11 +8,15 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 /* 引入axios*/
 import axios from 'axios';
-Vue.prototype.$axios = axios
+Vue.prototype.$axios = axios;
 import QS from 'qs'
-Vue.prototype.qs = QS
+Vue.prototype.qs = QS;
 /* 引入vuex */
-import store from './store'
+import store from './store';
+
+import SlideVerify from 'vue-monoplasty-slide-verify';
+
+Vue.use(SlideVerify);
 
 Vue.config.productionTip = false;
 
