@@ -116,7 +116,7 @@ const router = [
   {
     path: '/myProcess',
     name: 'myProcess',
-    component: () => import('../views/myProcess/MyProcess'),
+    component: layout,
     meta: {
       title: '流程',
       index: '12',

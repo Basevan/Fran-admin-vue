@@ -38,7 +38,7 @@
                   </template>
                   <div v-for="grandgrandchild_item in child_item.children">
                     <el-menu-item v-if="!grandgrandchild_item.children" :index="grandgrandchild_item.meta.index"
-                                  @click="handleLink(grandchild_item)">
+                                  @click="handleLink(grandgrandchild_item)">
                       <span>{{grandgrandchild_item.meta.title}}</span>
                     </el-menu-item>
                   </div>
@@ -49,12 +49,6 @@
           </template>
         </el-submenu>
 
-        <template v-else>
-          <el-menu-item v-if="item.type" :index="item.name" @click="handleLink(item.domain,item.uri)">
-            <i :class="item.icon"></i>
-            <span>{{item.name}}</span>
-          </el-menu-item>
-        </template>
       </template>
     </el-menu>
   </div>
@@ -109,16 +103,19 @@
       // 	const linkPath = path.split('/:')[0];
       // 	this.$router.push(linkPath);
       // },
-      handleLink(domain, uri) {
-        this.link = domain + uri;
-        this.$store.commit('changeDomain', this.link);
-        this.getLocalRoutes(uri);
-        if (this.localRoute) {
-          this.localRoute = false;
-          this.$router.push(uri);
-        } else {
-          this.$router.push("/views");
-        }
+      handleLink(item) {
+        console.log(this.$route.matched);
+        this.$router.push(item.path);
+
+        // this.link = domain + uri;
+        // this.$store.commit('changeDomain', this.link);
+        // this.getLocalRoutes(uri);
+        // if (this.localRoute) {
+        //   this.localRoute = false;
+        //   this.$router.push(uri);
+        // } else {
+        //   this.$router.push("/views");
+        // }
       },
       getLocalRoutes(uri) {
         let routes = this.$router.options.routes;
