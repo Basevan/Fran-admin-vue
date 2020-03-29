@@ -4,7 +4,7 @@
       class="layout-logo"
       v-bind:class="{collapse: collapse}">
       <router-link to="/home">
-        <img src="../../assets/images/logo.png">
+        <h3>Fran-admin</h3>
       </router-link>
     </div>
 
@@ -12,7 +12,7 @@
       <template v-for="item in router.options.routes">
         <el-submenu :index="item.meta.index" v-if="item.children && !item.hidden">
           <template slot="title">
-            <i :class="item.icon"></i>
+            <i :class="item.meta.icon"></i>
             <span slot="title">
               {{item.meta.title}}
             </span>
@@ -21,20 +21,20 @@
           <template v-if="item.children" v-for="child_item in item.children">
             <el-menu-item v-if="!child_item.children" :index="child_item.meta.index"
                           @click="handleLink(child_item)">
-              <span>{{child_item.meta.title}}</span>
+              <span class="left">{{child_item.meta.title}}</span>
             </el-menu-item>
             <el-submenu v-else :index="child_item.meta.index">
               <template slot="title">
-                <span>{{child_item.meta.title}}</span>
+                <span class="left">{{child_item.meta.title}}</span>
               </template>
               <div v-for="grandchild_item in child_item.children">
                 <el-menu-item v-if="!grandchild_item.children" :index="grandchild_item.meta.index"
                               @click="handleLink(grandchild_item)">
-                  <span>{{grandchild_item.meta.title}}</span>
+                  <span class="left">{{grandchild_item.meta.title}}</span>
                 </el-menu-item>
                 <el-submenu v-else :index="grandchild_item.meta.index">
                   <template slot="title">
-                    <span>{{grandchild_item.meta.title}}</span>
+                    <span class="left">{{grandchild_item.meta.title}}</span>
                   </template>
                   <div v-for="grandgrandchild_item in child_item.children">
                     <el-menu-item v-if="!grandgrandchild_item.children" :index="grandgrandchild_item.meta.index"
@@ -145,3 +145,10 @@
 
   };
 </script>
+
+<style>
+
+  .left {
+    margin-left: 30px;
+  }
+</style>

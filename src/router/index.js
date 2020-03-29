@@ -10,18 +10,19 @@ Vue.use(Router)
 const router = [
   {
     path: '',
-    hidden: true,
+    hidden: false,
     component: layout,
     redirect: '/home',
     meta: {
-      title: '首页',
+      title: '主页',
+      icon: 'el-icon-s-home',
       index: '1',
     },
     children: [
       {
         path: '/home',
         meta: {
-          title: '首页显示',
+          title: '了解Fran',
           index: '2',
         },
         component: () => import(/* webpackChunkName: "home" */ '../views/home.vue'),
@@ -32,7 +33,8 @@ const router = [
     path: '/edit',
     component: layout,
     meta: {
-      title: '编辑',
+      title: '公司管理',
+      icon: 'el-icon-office-building',
       index: '3',
     },
     children: [
@@ -41,7 +43,7 @@ const router = [
         name: 'add',
         component: () => import('../views/editMenu/Create'),
         meta: {
-          title: '增加',
+          title: '用户管理',
           index: '4',
         },
       },
@@ -50,7 +52,7 @@ const router = [
         name: 'editTree',
         component: () => import('../views/editMenu/EditTree'),
         meta: {
-          title: '树形',
+          title: '角色管理',
           index: '5',
         },
         children: [
@@ -66,11 +68,11 @@ const router = [
         ]
       },
       {
-        path: '/edit/editMenu',
-        name: 'editMenu',
-        component: () => import('../views/editMenu/EditMenu'),
+        path: '/edit/newAdd',
+        name: 'addNewImpl',
+        component: () => import('../views/editMenu/CreateNewImpl'),
         meta: {
-          title: '编辑导航栏',
+          title: '部门管理',
           index: '7',
         },
       },
@@ -79,8 +81,28 @@ const router = [
         name: 'addNewImpl',
         component: () => import('../views/editMenu/CreateNewImpl'),
         meta: {
-          title: '新增2',
+          title: '岗位管理',
           index: '8',
+        },
+      },
+    ]
+  },
+  {
+    path: '/menuManage',
+    components: layout,
+    meta: {
+      title: '系统管理',
+      icon: 'el-icon-setting',
+      index: '9'
+    },
+    children: [
+      {
+        path: '/edit/editMenu',
+        name: 'editMenu',
+        component: () => import('../views/editMenu/EditMenu'),
+        meta: {
+          title: '菜单管理',
+          index: '10',
         },
       },
       {
@@ -88,8 +110,26 @@ const router = [
         name: 'test',
         component: () => import('../views/form/testForm'),
         meta: {
-          title: '测试',
-          index: '9',
+          title: '字典管理',
+          index: '11',
+        },
+      },
+      {
+        path: '/testForm',
+        name: 'test',
+        component: () => import('../views/form/testForm'),
+        meta: {
+          title: '参数设置',
+          index: '12',
+        },
+      },
+      {
+        path: '/testForm',
+        name: 'test',
+        component: () => import('../views/form/testForm'),
+        meta: {
+          title: '日志管理',
+          index: '13',
         },
       }
     ]
@@ -100,7 +140,8 @@ const router = [
     component: layout,
     meta: {
       title: '消息',
-      index: '10',
+      icon: 'el-icon-chat-line-round',
+      index: '14',
     },
     children: [
       {
@@ -108,7 +149,7 @@ const router = [
         component: MyMessage,
         meta: {
           title: '我的消息',
-          index: '11',
+          index: '15',
         },
       }
     ]
@@ -119,6 +160,7 @@ const router = [
     component: layout,
     meta: {
       title: '流程',
+      icon: 'el-icon-star-on',
       index: '12',
     },
     children: [
@@ -145,11 +187,6 @@ const router = [
     meta: {
       title: '登录'
     }
-  },
-  {
-    path: '/editMenu',
-    name: 'editMenu',
-    component: () => import('../views/form/Second')
   },
 ];
 
