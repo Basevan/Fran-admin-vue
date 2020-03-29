@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex';
-import menuModule from './menu/index'
+import menuModule from './menu/index';
+import processModule from './process/index';
 
 Vue.use(Vuex)
 
@@ -49,6 +50,7 @@ const store = new Vuex.Store({
   },
   modules: {
     menuModule,
+    processModule,
   }
 
 });

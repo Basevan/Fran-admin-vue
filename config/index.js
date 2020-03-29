@@ -10,7 +10,15 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/apis': {
+        // context: ['/apis'],
+        // target: 'http://api-sale.t.xgimi.com',
+        target: 'http://cxf.love.com:8110',
+        changeOrigin: true,
+        pathRewrite: { '^/apis': '' },
+      },
+    },
 
     // Various Dev Server settings
     host: 'cxf.love.com', // can be overwritten by process.env.HOST

@@ -5,17 +5,17 @@
 			class="iconfont icon-collapse nav-control"
 			@click="changeCollapse">
 
-		<div class="editMenu">
-			<router-link to="/editMenu"><p><i class="el-icon-edit"></i>编辑导航</p></router-link>
+<!--		<div class="editMenu">-->
+<!--			<router-link to="/editMenu"><p><i class="el-icon-edit"></i>编辑导航</p></router-link>-->
+<!--		</div>-->
+		<div class="layout-header-info">
+			<span class="username">{{username}}</span>
+			<el-button
+				type="text"
+				@click="handleLoginOut">
+				退出
+			</el-button>
 		</div>
-		<!--<div class="layout-header-info">-->
-			<!--<span class="username">{{username}}</span>-->
-			<!--<el-button-->
-				<!--type="text"-->
-				<!--@click="handleLoginOut">-->
-				<!--退出-->
-			<!--</el-button>-->
-		<!--</div>-->
 	</div>
 </template>
 

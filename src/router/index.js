@@ -70,7 +70,7 @@ const router = [
         name: 'editMenu',
         component: () => import('../views/editMenu/EditMenu'),
         meta: {
-          title: '编辑3',
+          title: '编辑导航栏',
           index: '7',
         },
       },
