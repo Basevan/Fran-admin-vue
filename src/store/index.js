@@ -11,7 +11,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     loading: false,
-    navCollapse: document.body.clientWidth < 1450 || false,
+    navCollapse: document.body.clientWidth < 800 || false,
     count: 0,
     domain: '',
     allData: []
