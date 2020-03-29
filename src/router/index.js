@@ -188,6 +188,16 @@ const router = [
       title: '登录'
     }
   },
+  {
+    path: '/noPermission',
+    component: () => import(/* webpackChunkName: "NoPermisson" */ '../views/error/NoPermisson.vue'),
+    hidden: true
+  },
+  {
+    path: '*',
+    component: () => import(/* webpackChunkName: "NotFind" */ '../views/error/NotFind.vue'),
+    hidden: true
+  },
 ];
 
 export default new Router({
