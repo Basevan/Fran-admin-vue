@@ -4,7 +4,7 @@
        element-loading-spinner="el-icon-loading"
        element-loading-background="rgba(0, 0, 0, 0.8)">
 
-    <el-image :src="srcArr[index]"></el-image>
+    <el-image :src="imgArr[index]" ></el-image>
 
     <div class="description-box">
       <h1 style="font-family: Arial;color: whitesmoke">Fran-admin</h1>
@@ -80,7 +80,7 @@
 
       <div v-if="qrCode">
         <router-link to="/home">
-          <img src="../../assets/英文-logo-纯黑.png">
+
         </router-link>
       </div>
     </div>
@@ -99,6 +99,7 @@
 
     data() {
       return {
+        background: '../../assets/login/loginBackground.jpg',
         msg: '',
         text: '向右滑',
         // 精确度小，可允许的误差范围小；为1时，则表示滑块要与凹槽完全重叠，才能验证成功。默认值为5
@@ -116,25 +117,17 @@
         checked: '',
         srcArr: [
           'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          // 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-          // 'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
-          // 'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
-          // 'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
-          // 'https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg',
-          // 'https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg',
-          // 'https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg'
         ],
         imgArr: [
-          '../../assets/background/aurora01.jpg',
-          '../../assets/background/aurora02.jpg',
-          '../../assets/background/background.jpg',
-          '../../assets/background/background-sea.jpg',
-          '../../assets/background/codingPanda.jpg',
-          '../../assets/background/light.jpg',
-          '../../assets/background/mapleLeaf.jpg',
+          require('../../assets/login/loginBackground.jpg'),
+          require('../../assets/login/background1.jpeg'),
+          require('../../assets/login/background3.jpg'),
+          require('../../assets/login/background4.jpg'),
+          'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
         ],
+
         index: -1,
-        path: '../../assets/background/background-sea.jpg',
+        path: '',
       };
     },
     created() {
@@ -274,9 +267,10 @@
         return "rgb(" + r + "," + g + "," + b + ")";
       },
       nextBackgroundImg() {
-        // let index = Math.floor(Math.random() * 7);
+        //5张随机一张
+        // let index = Math.floor(Math.random() * 5);
         // this.index = index;
-        let arr = this.srcArr.length - 1;
+        let arr = this.imgArr.length - 1;
         if (this.index === arr) {
           this.index = -1;
         }
