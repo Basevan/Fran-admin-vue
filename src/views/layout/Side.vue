@@ -101,7 +101,6 @@
       // 	this.$router.push(linkPath);
       // },
       handleLink(item) {
-        console.log(item);
         this.$router.push(item.path);
       },
     },

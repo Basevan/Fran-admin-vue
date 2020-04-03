@@ -43,6 +43,9 @@ const store = new Vuex.Store({
         state.navCollapse = !state.navCollapse;
       }
     },
+    closeLoading(state, payload) {
+
+    }
   },
 
   actions: {
