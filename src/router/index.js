@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router';
-import MyMessage from "../views/myMessage/MyMessage";
-import MyProcess from "../views/myProcess/MyProcess";
+import MyMessage from "../views/message/MyMessage";
+import MyProcess from "../views/process/MyProcess";
 import layout from "../views/layout/Layout.vue";
 
 
@@ -30,7 +30,7 @@ const router = [
     ]
   },
   {
-    path: '/edit',
+    path: '',
     component: layout,
     meta: {
       title: '公司管理',
@@ -39,56 +39,54 @@ const router = [
     },
     children: [
       {
-        path: '/edit/add',
-        name: 'add',
-        component: () => import('../views/editMenu/Create'),
+        path: '/company/employee',
+        name: 'employee',
+        component: () => import('../views/company/Employee'),
         meta: {
-          title: '用户管理',
+          title: '员工管理',
           index: '4',
         },
       },
       {
-        path: '/edit/tree',
-        name: 'editTree',
-        component: () => import('../views/editMenu/EditTree'),
+        path: '/company/role',
+        name: 'role',
+        component: () => import('../views/company/Role'),
         meta: {
           title: '角色管理',
           index: '5',
         },
-        children: [
-          {
-            path: '/edit/edit',
-            name: 'edit2',
-            component: () => import('../views/editMenu/Edit'),
-            meta: {
-              title: '编辑2',
-              index: '6',
-            },
-          }
-        ]
       },
       {
-        path: '/edit/newAdd',
-        name: 'addNewImpl',
-        component: () => import('../views/editMenu/CreateNewImpl'),
+        path: '/company/job',
+        name: 'job',
+        component: () => import('../views/company/Job'),
+        meta: {
+          title: '岗位管理',
+          index: '6',
+        },
+      },
+      {
+        path: '/company/department',
+        name: 'department',
+        component: () => import('../views/company/Department'),
         meta: {
           title: '部门管理',
           index: '7',
         },
       },
       {
-        path: '/edit/newAdd',
-        name: 'addNewImpl',
-        component: () => import('../views/editMenu/CreateNewImpl'),
+        path: '/company/title',
+        name: 'title',
+        component: () => import('../views/company/Title'),
         meta: {
-          title: '岗位管理',
+          title: '职称管理',
           index: '8',
         },
       },
     ]
   },
   {
-    path: '/menuManage',
+    path: '',
     components: layout,
     meta: {
       title: '系统管理',
@@ -97,36 +95,36 @@ const router = [
     },
     children: [
       {
-        path: '/edit/editMenu',
-        name: 'editMenu',
-        component: () => import('../views/editMenu/EditMenu'),
+        path: '/system/menu',
+        name: 'menu',
+        component: () => import('../views/system/Menu'),
         meta: {
           title: '菜单管理',
           index: '10',
         },
       },
       {
-        path: '/testForm',
-        name: 'test',
-        component: () => import('../views/form/testForm'),
+        path: '/system/dictionary',
+        name: 'dictionary',
+        component: () => import('../views/system/Dictionary'),
         meta: {
           title: '字典管理',
           index: '11',
         },
       },
       {
-        path: '/testForm',
-        name: 'test',
-        component: () => import('../views/form/testForm'),
+        path: '/system/parameter',
+        name: 'parameter',
+        component: () => import('../views/system/Parameter'),
         meta: {
           title: '参数设置',
           index: '12',
         },
       },
       {
-        path: '/testForm',
-        name: 'test',
-        component: () => import('../views/form/testForm'),
+        path: '/system/log',
+        name: 'log',
+        component: () => import('../views/system/Log'),
         meta: {
           title: '日志管理',
           index: '13',
@@ -135,8 +133,7 @@ const router = [
     ]
   },
   {
-    path: '/myMessage',
-    name: 'myMessage',
+    path: '',
     component: layout,
     meta: {
       title: '消息',
@@ -145,7 +142,8 @@ const router = [
     },
     children: [
       {
-        path: '/myMessage/my',
+        path: '/message/my',
+        name: 'message',
         component: MyMessage,
         meta: {
           title: '我的消息',
@@ -155,8 +153,7 @@ const router = [
     ]
   },
   {
-    path: '/myProcess',
-    name: 'myProcess',
+    path: '',
     component: layout,
     meta: {
       title: '流程',
@@ -165,7 +162,8 @@ const router = [
     },
     children: [
       {
-        path: '/myProcess/my',
+        path: '/process/my',
+        name: 'process',
         component: MyProcess,
         meta: {
           title: '流程',

@@ -72,7 +72,8 @@
 			 * 退出登录
 			 */
 			async handleLoginOut() {
-				window.location.href = `${this.$store.state.manageLoginUrl}/logout?redirectUrl=${window.location.href}`;
+			  this.$router.push('login');
+				// window.location.href = `${this.$store.state.manageLoginUrl}/logout?redirectUrl=${window.location.href}`;
 			},
 
 			/**
