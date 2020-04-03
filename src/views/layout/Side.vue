@@ -19,25 +19,25 @@
           </template>
 
           <template v-if="item.children" v-for="child_item in item.children">
-            <el-menu-item v-if="!child_item.children" :index="child_item.meta.index"
+            <el-menu-item v-if="!child_item.children" :index="child_item.path"
                           @click="handleLink(child_item)">
               <span class="left">{{child_item.meta.title}}</span>
             </el-menu-item>
-            <el-submenu v-else :index="child_item.meta.index">
+            <el-submenu v-else :index="child_item.path">
               <template slot="title">
                 <span class="left">{{child_item.meta.title}}</span>
               </template>
               <div v-for="grandchild_item in child_item.children">
-                <el-menu-item v-if="!grandchild_item.children" :index="grandchild_item.meta.index"
+                <el-menu-item v-if="!grandchild_item.children" :index="grandchild_item.path"
                               @click="handleLink(grandchild_item)">
                   <span class="left">{{grandchild_item.meta.title}}</span>
                 </el-menu-item>
-                <el-submenu v-else :index="grandchild_item.meta.index">
+                <el-submenu v-else :index="grandchild_item.path">
                   <template slot="title">
                     <span class="left">{{grandchild_item.meta.title}}</span>
                   </template>
                   <div v-for="grandgrandchild_item in child_item.children">
-                    <el-menu-item v-if="!grandgrandchild_item.children" :index="grandgrandchild_item.meta.index"
+                    <el-menu-item v-if="!grandgrandchild_item.children" :index="grandgrandchild_item.path"
                                   @click="handleLink(grandgrandchild_item)">
                       <span>{{grandgrandchild_item.meta.title}}</span>
                     </el-menu-item>
@@ -57,7 +57,6 @@
 <script>
   import {mapState, mapMutations, mapActions} from 'vuex';
   import router from '../../router/index';
-  import axios from 'axios';
 
   export default {
 
@@ -65,23 +64,16 @@
       return {
         router,
         localRoute: false,
-        //完整路径
-        link: '',
-        list: [],
       };
     },
     computed: {
       ...mapState([
         'menuModule'
       ]),
-      sideList() {
-        return this.menuModule.sideList;
-      },
       collapse() {
         return this.$store.state.navCollapse;
       },
       routers() {
-        console.log(this.$store.getters.routes);
         return this.$store.getters.routes;
       },
       pathname() {
@@ -104,50 +96,21 @@
       // 	this.$router.push(linkPath);
       // },
       handleLink(item) {
-        console.log(this.$route.matched);
         this.$router.push(item.path);
 
-        // this.link = domain + uri;
-        // this.$store.commit('changeDomain', this.link);
-        // this.getLocalRoutes(uri);
-        // if (this.localRoute) {
-        //   this.localRoute = false;
-        //   this.$router.push(uri);
-        // } else {
-        //   this.$router.push("/views");
-        // }
-      },
-      getLocalRoutes(uri) {
-        let routes = this.$router.options.routes;
-        routes.forEach(route => {
-          if ('/' + route.path === uri) {
-            this.localRoute = true;
-          }
-          if (route.children !== undefined) {
-            route.children.forEach(route => {
-              if ('/' + route.path === uri) {
-                this.localRoute = true;
-              }
-            });
-          }
-        });
-      },
-      getList: function () {
-        this.$store.dispatch('GET_MENU');
-        this.$store.dispatch('LOGIN');
       },
     },
     created() {
-      // this.list = this.$router.options.routes;
-      // this.list.splice(0,1);
-      // console.log(this.list);
+
     },
 
   };
 </script>
 
 <style>
-
+  /**
+   * 导航栏菜单项左边间隔
+   */
   .left {
     margin-left: 30px;
   }
