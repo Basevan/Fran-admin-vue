@@ -10,6 +10,8 @@
 
     <el-menu class="layout-menu-left" :default-active="pathname" :unique-opened="true" :collapse="collapse">
       <template v-for="item in router.options.routes">
+
+        <!-- 第一层目录 -->
         <el-submenu :index="item.meta.index" v-if="item.children && !item.hidden">
           <template slot="title">
             <i :class="item.meta.icon"></i>
@@ -19,15 +21,18 @@
           </template>
 
           <template v-if="item.children" v-for="child_item in item.children">
+            <!--第一层目录下的菜单-->
             <el-menu-item v-if="!child_item.children" :index="child_item.path"
                           @click="handleLink(child_item)">
               <span class="left">{{child_item.meta.title}}</span>
             </el-menu-item>
+            <!--第一层目录下的目录，即第二层目录-->
             <el-submenu v-else :index="child_item.path">
               <template slot="title">
                 <span class="left">{{child_item.meta.title}}</span>
               </template>
               <div v-for="grandchild_item in child_item.children">
+                <!--第二层目录下的菜单-->
                 <el-menu-item v-if="!grandchild_item.children" :index="grandchild_item.path"
                               @click="handleLink(grandchild_item)">
                   <span class="left">{{grandchild_item.meta.title}}</span>
@@ -96,8 +101,8 @@
       // 	this.$router.push(linkPath);
       // },
       handleLink(item) {
+        console.log(item);
         this.$router.push(item.path);
-
       },
     },
     created() {

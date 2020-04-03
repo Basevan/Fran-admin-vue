@@ -87,7 +87,7 @@ const router = [
   },
   {
     path: '',
-    components: layout,
+    component: layout,
     meta: {
       title: '系统管理',
       icon: 'el-icon-setting',
