@@ -4,7 +4,8 @@
       class="layout-logo"
       v-bind:class="{collapse: collapse}">
       <router-link to="/home">
-        <h3>Fran-admin</h3>
+        <h3 v-if="!collapse">Fran-admin</h3>
+        <h3 v-else>Fran</h3>
       </router-link>
     </div>
 
