@@ -92,7 +92,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import { mapState, mapActions } from 'vuex';
 
   export default {
     name: "login",
@@ -140,7 +140,11 @@
     created() {
       this.nextBackgroundImg();
     },
-    computed: {},
+    computed: {
+      ...mapState([
+        'userModule'
+      ])
+    },
     mounted() {
       this.code = '';
       this.inputCode = '';
@@ -180,6 +184,9 @@
 
     },
     methods: {
+      ...mapActions({
+        login: 'userModule/login'
+      }),
       submitForm() {
         this.loading = true;
         setTimeout(() => {
@@ -203,7 +210,11 @@
               message: '验证成功',
               type: 'success'
             });
-            this.$router.push("/home");
+            this.login({
+              id: this.ruleForm.account,
+            }).then( () => {
+              this.$router.push("/home");
+            });
           } else {
             this.loading = false;
             this.$message({

@@ -54,14 +54,12 @@ const request = async (options) => {
         return {
           code: 502,
           message: 'noPermission'
-          // message: getLangMessage('noPermission')
         };
       }
 
       setTimeout(() => {
         Notification.error({
           title: 'error',
-          // title: getLangMessage('error'),
           message: data.msg
         });
       }, 0);
@@ -75,8 +73,6 @@ const request = async (options) => {
     Notification.error({
       title: 'error',
       message: 'systemError'
-      // title: getLangMessage('error'),
-      // message: getLangMessage('systemError')
     });
   }
 };

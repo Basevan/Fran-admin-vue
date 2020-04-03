@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex';
-import menuModule from './menu/index';
+import menuModule from './system/index';
 import processModule from './process/index';
+import userModule from './user/index';
 
 Vue.use(Vuex)
 
@@ -11,6 +12,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    userDetail: {},
     loading: false,
     navCollapse: document.body.clientWidth < 800 || false,
     count: 0,
@@ -43,6 +45,10 @@ const store = new Vuex.Store({
     },
   },
 
+  actions: {
+
+  },
+
   getters: {
     getCount: state => {
       return state.count;
@@ -51,6 +57,7 @@ const store = new Vuex.Store({
   modules: {
     menuModule,
     processModule,
+    userModule,
   }
 
 });
