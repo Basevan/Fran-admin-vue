@@ -267,14 +267,19 @@
         return "rgb(" + r + "," + g + "," + b + ")";
       },
       nextBackgroundImg() {
+        this.loading = true;
         //5张随机一张
-        // let index = Math.floor(Math.random() * 5);
+        let index = Math.floor(Math.random() * 5);
         // this.index = index;
-        let arr = this.imgArr.length - 1;
-        if (this.index === arr) {
-          this.index = -1;
-        }
-        this.index++;
+        setTimeout(() => {
+          let arr = this.imgArr.length - 1;
+          if (this.index === arr) {
+            this.index = -1;
+          }
+          this.index++;
+          this.loading = false;
+        },300 * index);
+
       },
 
       resetForm(formName) {

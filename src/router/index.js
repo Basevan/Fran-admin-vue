@@ -12,7 +12,7 @@ const router = [
     path: '',
     hidden: false,
     component: layout,
-    redirect: '/home',
+    redirect: '/login',
     meta: {
       title: '主页',
       icon: 'el-icon-s-home',
