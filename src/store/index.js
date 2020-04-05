@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import menuModule from './system/index';
 import processModule from './process/index';
 import userModule from './user/index';
+import roleModule from './role/index';
 
 Vue.use(Vuex)
 
@@ -61,6 +62,7 @@ const store = new Vuex.Store({
     menuModule,
     processModule,
     userModule,
+    roleModule,
   }
 
 });

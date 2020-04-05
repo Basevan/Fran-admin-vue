@@ -95,6 +95,7 @@
     data() {
       return {
         queryForm: {},
+        addForm: {},
         statusOption: [
           { label: '使用中', value: 1 },
           { label: '禁用', value: 0 }
