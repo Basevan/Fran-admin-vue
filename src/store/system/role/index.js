@@ -1,6 +1,6 @@
 import {
   roleList,
-} from "../../api/role";
+} from "../../../api/system/role";
 
 const roleModule = {
   namespaced: true,

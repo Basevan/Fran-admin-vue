@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex';
-import menuModule from './system/index';
+import menuModule from './system/menu';
 import processModule from './process/index';
-import userModule from './user/index';
-import roleModule from './role/index';
+import userModule from './company/user/index';
+import roleModule from './system/role/index';
 
 Vue.use(Vuex)
 

@@ -48,15 +48,6 @@ const router = [
         },
       },
       {
-        path: '/company/role',
-        name: 'role',
-        component: () => import('../views/company/Role'),
-        meta: {
-          title: '角色管理',
-          index: '5',
-        },
-      },
-      {
         path: '/company/job',
         name: 'job',
         component: () => import('../views/company/Job'),
@@ -94,6 +85,15 @@ const router = [
       index: '9'
     },
     children: [
+      {
+        path: '/system/role',
+        name: 'role',
+        component: () => import('../views/system/Role'),
+        meta: {
+          title: '角色管理',
+          index: '5',
+        },
+      },
       {
         path: '/system/menu',
         name: 'menu',
@@ -158,7 +158,7 @@ const router = [
     meta: {
       title: '流程',
       icon: 'el-icon-star-on',
-      index: '12',
+      index: '16',
     },
     children: [
       {
@@ -167,7 +167,7 @@ const router = [
         component: MyProcess,
         meta: {
           title: '流程',
-          index: '13',
+          index: '17',
         },
       }
     ]

@@ -1,7 +1,7 @@
 import {
   login, userList, status
 }
-  from "@/api/user/index";
+  from "@/api/company/user/index";
 
 const userModule = {
   namespaced: true,
