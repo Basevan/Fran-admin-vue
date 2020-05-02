@@ -49,7 +49,7 @@
             :inactive-value="0"
             active-color="#409EFF"
             inactive-color="grey"
-            @change="transferStatus(scope.row)">
+            @click.native="transferStatus(scope.row)">
           </el-switch>
         </template>
       </el-table-column>
@@ -62,10 +62,14 @@
           <label>操作</label>
         </template>
         <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click="editRole">编辑</el-button>
+          <el-button type="primary" size="mini" @click="editRole(scope.row)">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
+
+    <el-dialog title="编辑/新增角色" :visible.sync="editVisible">
+
+    </el-dialog>
   </div>
 </template>
 
@@ -75,6 +79,7 @@
     name: "Role",
     data() {
       return {
+        editVisible: false,
         queryForm: {},
       }
     },
@@ -84,17 +89,21 @@
       ]),
       roleList() {
         return this.roleModule.list;
+      },
+      status() {
+        return this.roleModule.status;
       }
     },
     methods: {
       ...mapActions({
-        getRoleList: 'roleModule/getRoleList'
+        getRoleList: 'roleModule/getRoleList',
+        changeStatus: 'roleModule/changeStatus',
       }),
-      editRole() {
-
+      editRole(row) {
+        console.log(row);
       },
       transferStatus(row) {
-        let tip = row.status === 1 ? '解禁' : '禁用';
+        let tip = row.status === 1 ? '禁用' : '解禁';
         this.$confirm('是否' + tip + '该角色?', '温馨提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -102,7 +111,7 @@
         }).then(() => {
           this.changeStatus({
             id: row.id,
-            status: row.status,
+            status: row.status === 0 ? 0 : 1,
           }).then(() => {
             row.status = this.status;
             this.$notify({

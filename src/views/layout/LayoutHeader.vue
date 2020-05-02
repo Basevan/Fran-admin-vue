@@ -10,17 +10,29 @@
 <!--		</div>-->
 		<div class="layout-header-info">
 			<span class="username">{{username}}</span>
-			<el-button
-				type="text"
-				@click="handleLoginOut">
-				退出
-			</el-button>
+      <el-dropdown trigger="hover" :hide-timeout="200">
+        <el-image
+          src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"
+          class="user-avater">
+        </el-image>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="a">个人中心</el-dropdown-item>
+          <el-dropdown-item command="b">更换账号</el-dropdown-item>
+          <el-dropdown-item command="c">注销</el-dropdown-item>
+          <el-dropdown-item command="d">退出</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+<!--			<el-button-->
+<!--				type="text"-->
+<!--				@click="handleLoginOut">-->
+<!--				退出-->
+<!--			</el-button>-->
 		</div>
 	</div>
 </template>
 
 <script>
-	import { mapMutations } from 'vuex';
+	import { mapState,mapMutations,mapActions } from 'vuex';
 	import nav_arrow from '@/assets/images/nav_arrow.png';
 
 	export default {
@@ -56,18 +68,27 @@
 			};
 		},
 		computed: {
+      ...mapState([
+        'userModule'
+      ]),
 			username() {
-				return this.$store.state.username;
+				return this.userModule.username;
 			},
 			routeKey() {
 				return this.$route.path.split('/')[1];
 			}
 		},
+    created() {
+		  this.getUserName();
+    },
 		methods: {
 			...mapMutations({
-				setCollapse: 'setCollapse'
+				setCollapse: 'setCollapse',
+        getUserName: 'userModule/getUserName',
 			}),
+      ...mapActions({
 
+      }),
 			/**
 			 * 退出登录
 			 */

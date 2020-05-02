@@ -3,17 +3,14 @@
 
     <el-card>
       <el-form v-model="queryForm" :inline="true" label-width="80px" label-position="left">
-        <el-form-item>
-          <el-input v-model="queryForm.name" placeholder="根据用户名查询"></el-input>
+        <el-form-item label="用户名称">
+          <el-input v-model="queryForm.name" placeholder="根据用户名称查询"></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-input v-model="queryForm.department" placeholder="根据部门查询"></el-input>
+        <el-form-item label="电话号码">
+          <el-input v-model="queryForm.phone" placeholder="根据电话号码查询"></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-input v-model="queryForm.job" placeholder="根据岗位查询"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-select v-model="queryForm.status" clearable filterable placeholder="用户状态">
+        <el-form-item label="用户状态">
+          <el-select v-model="queryForm.status" clearable filterable>
             <el-option v-for="option in statusOption" :label="option.label" :value="option.value"
                        :key="option.value"></el-option>
           </el-select>
@@ -22,46 +19,41 @@
           <el-button @click="searchUser">查 询</el-button>
         </el-form-item>
         <el-form-item style="float: right;">
-          <el-button @click="createUser" disabled>录入新员工</el-button>
+          <el-button @click="createUser">录入新员工</el-button>
         </el-form-item>
       </el-form>
     </el-card>
-    <el-table :data="employeeList"
+
+    <el-table :data="userList"
               style="width: 100%; margin-top: 20px;"
               :header-cell-style="{background: '#eaeaea',color:'#606266'}">
       <el-table-column
-        prop="employeeName"
-        label="员工名称">
+        width="100"
+        prop="userId"
+        label="用户ID">
       </el-table-column>
       <el-table-column
-        prop="employeeMail"
+        width="100"
+        prop="userName"
+        label="登录名称">
+      </el-table-column>
+      <el-table-column
+        width="100"
+        prop="userName"
+        label="用户名称">
+      </el-table-column>
+      <el-table-column
+        prop="userPhone"
+        label="手机">
+      </el-table-column>
+      <el-table-column
+        prop="userMail"
         label="邮箱">
-        <template slot-scope="scope">
-          <el-popover
-            placement="top-start"
-            title="邮箱"
-            width="200"
-            trigger="hover"
-            :content="scope.row.employeeMail">
-            <label slot="reference" >{{changeMail(scope.row.employeeMail)}}</label>
-          </el-popover>
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="employeePhone"
-        label="电话号码">
-      </el-table-column>
-      <el-table-column
-        prop="department"
-        label="部门">
-      </el-table-column>
-      <el-table-column
-        prop="job"
-        label="岗位">
       </el-table-column>
       <el-table-column
         prop="status"
         label="用户状态">
+
         <template slot-scope="scope">
           <el-switch
             v-model="scope.row.status"
@@ -74,12 +66,15 @@
         </template>
       </el-table-column>
       <el-table-column
+        prop="updatedTime"
+        label="修改时间">
+      </el-table-column>
+      <el-table-column
         label="操作">
         <template slot="header" slot-scope="scope">
           <label>操作</label>
         </template>
         <template slot-scope="scope">
-          <el-button type="info" size="mini" @click="editUser(scope.row)">详情</el-button>
           <el-button type="primary" size="mini" @click="editUser(scope.row)">编辑</el-button>
           <el-button type="danger" size="mini">删除</el-button>
         </template>
@@ -111,15 +106,10 @@
   import {mapState, mapActions} from 'vuex';
 
   export default {
-    name: "Employee",
+    name: "User",
     data() {
       return {
-        queryForm: {
-          name: '',
-          department: '',
-          job: '',
-          status: '',
-        },
+        queryForm: {},
         addForm: {},
         rules: {
           name: [
@@ -141,19 +131,20 @@
     },
     computed: {
       ...mapState([
-        'employeeModule'
+        'userModule'
       ]),
-      employeeList() {
-        return this.employeeModule.employeeList;
+      userList() {
+        return this.userModule.userList;
       },
+      status() {
+        return this.userModule.status;
+      }
     },
     methods: {
       ...mapActions({
-        getEmployeeList: 'employeeModule/employeeList',
+        getUserList: 'userModule/getUserList',
+        changeStatus: 'userModule/changeStatus',
       }),
-      loadPage() {
-        this.getEmployeeList();
-      },
       searchUser() {
       },
       createUser() {
@@ -205,12 +196,9 @@
           }
         })
       },
-      changeMail(mail) {
-        return mail.substring(0,mail.indexOf('@'));
-      }
     },
     created() {
-      this.loadPage();
+      this.getUserList();
     }
   }
 </script>

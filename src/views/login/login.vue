@@ -15,7 +15,7 @@
 
     <div class="login-box">
       <div v-if="account">
-        <el-form :model="ruleForm" status-icon label-width="0" class="demo-ruleForm">
+        <el-form :model="ruleForm" status-icon label-width="0" class="demo-ruleForm" @keyup.enter.native="submitForm">
           <el-row>
             <el-col></el-col>
           </el-row>
@@ -199,14 +199,19 @@
             })
           } else if (this.code.toLocaleLowerCase() === this.inputCode.toLocaleLowerCase()) {
             this.loading = false;
-            this.$message({
-              message: '验证成功',
-              type: 'success'
-            });
             this.login({
               id: this.ruleForm.account,
             }).then( () => {
-              this.$router.push("/home");
+              this.$message({
+                message: '验证成功',
+                type: 'success'
+              });
+              this.$router.push({
+                path: '/home',
+                params: {
+                  id: 100001
+                }
+              });
             });
           } else {
             this.loading = false;
@@ -240,7 +245,7 @@
           let y = 30 + Math.random() * 3; //文字在canvas上的y坐标
           ctx.font = "30px 微软雅黑";
           ctx.fillText(oneCode, x, y);
-          ctx.fillStyle = 'rgb(255,255,255)';  //文字上色
+          ctx.fillStyle = 'rgb(0,0,0)';  //文字上色
         }
         for (let i = 0; i <= 50; i++) { //验证码上显示小点
           ctx.strokeStyle = this.randomColor();

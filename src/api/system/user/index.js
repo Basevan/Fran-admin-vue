@@ -8,6 +8,14 @@ export const login = async (params) => {
   })
 };
 
+export const userDetail = async (params) => {
+  return request({
+    method: 'post',
+    url: '/user/detail',
+    data: params
+  })
+};
+
 export const userList = async (params) => {
   return request({
     method: 'get',

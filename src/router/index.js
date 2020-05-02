@@ -53,7 +53,7 @@ const router = [
         component: () => import('../views/company/Job'),
         meta: {
           title: '岗位管理',
-          index: '6',
+          index: '5',
         },
       },
       {
@@ -62,7 +62,7 @@ const router = [
         component: () => import('../views/company/Department'),
         meta: {
           title: '部门管理',
-          index: '7',
+          index: '6',
         },
       },
       {
@@ -71,7 +71,7 @@ const router = [
         component: () => import('../views/company/Title'),
         meta: {
           title: '职称管理',
-          index: '8',
+          index: '7',
         },
       },
     ]
@@ -82,16 +82,25 @@ const router = [
     meta: {
       title: '系统管理',
       icon: 'el-icon-setting',
-      index: '9'
+      index: '8'
     },
     children: [
+      {
+        path: '/system/user',
+        name: 'user',
+        component: () => import('../views/system/User'),
+        meta: {
+          title: '用户管理',
+          index: '9',
+        },
+      },
       {
         path: '/system/role',
         name: 'role',
         component: () => import('../views/system/Role'),
         meta: {
           title: '角色管理',
-          index: '5',
+          index: '10',
         },
       },
       {
@@ -100,7 +109,7 @@ const router = [
         component: () => import('../views/system/Menu'),
         meta: {
           title: '菜单管理',
-          index: '10',
+          index: '11',
         },
       },
       {
@@ -109,7 +118,7 @@ const router = [
         component: () => import('../views/system/Dictionary'),
         meta: {
           title: '字典管理',
-          index: '11',
+          index: '12',
         },
       },
       {
@@ -118,7 +127,7 @@ const router = [
         component: () => import('../views/system/Parameter'),
         meta: {
           title: '参数设置',
-          index: '12',
+          index: '13',
         },
       },
       {
@@ -127,7 +136,7 @@ const router = [
         component: () => import('../views/system/Log'),
         meta: {
           title: '日志管理',
-          index: '13',
+          index: '14',
         },
       }
     ]
@@ -138,7 +147,7 @@ const router = [
     meta: {
       title: '消息',
       icon: 'el-icon-chat-line-round',
-      index: '14',
+      index: '15',
     },
     children: [
       {
@@ -147,7 +156,7 @@ const router = [
         component: MyMessage,
         meta: {
           title: '我的消息',
-          index: '15',
+          index: '16',
         },
       }
     ]
@@ -158,7 +167,7 @@ const router = [
     meta: {
       title: '流程',
       icon: 'el-icon-star-on',
-      index: '16',
+      index: '17',
     },
     children: [
       {
@@ -167,7 +176,7 @@ const router = [
         component: MyProcess,
         meta: {
           title: '流程',
-          index: '17',
+          index: '18',
         },
       }
     ]

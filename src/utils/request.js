@@ -44,7 +44,7 @@ const request = async (options) => {
 
       // 未登录
       if (data.code === 601) {
-        const url = `${data.data.manageLoginAddress}/login?redirectUrl=${encodeURIComponent(window.location.href)}`;
+        const url = `${data.data.manageLoginAddress}`;
         return window.location.href = url;
       }
 

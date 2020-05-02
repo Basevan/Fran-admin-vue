@@ -7,3 +7,11 @@ export const roleList = async (params) => {
     params: params
   })
 };
+
+export const changeStatus = async (params) => {
+  return request({
+    method: 'post',
+    url: '/role/status',
+    data: params
+  })
+}

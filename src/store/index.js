@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex';
 import menuModule from './system/menu';
-import processModule from './process/index';
-import userModule from './company/user/index';
+import userModule from './system/user/index';
 import roleModule from './system/role/index';
+
+import employeeModule from './company/employee';
+
+import processModule from './process/index';
+
 
 Vue.use(Vuex)
 
@@ -21,9 +25,7 @@ const store = new Vuex.Store({
     allData: []
   },
   mutations: {
-    increment (state) {
-      state.count++
-    },
+
     changeDomain(state,newDomain){
       state.domain = newDomain;
     },
@@ -60,9 +62,12 @@ const store = new Vuex.Store({
   },
   modules: {
     menuModule,
-    processModule,
     userModule,
     roleModule,
+
+    employeeModule,
+
+    processModule,
   }
 
 });

@@ -1,4 +1,4 @@
-import { getMenu } from '@/api/menu/index';
+import { getMenu } from '@/api/system/menu/index';
 
 const processModule = {
   namespaced: true,
