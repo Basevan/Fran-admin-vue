@@ -201,17 +201,24 @@
             this.loading = false;
             this.login({
               id: this.ruleForm.account,
-            }).then( () => {
-              this.$message({
-                message: '验证成功',
-                type: 'success'
-              });
-              this.$router.push({
-                path: '/home',
-                params: {
-                  id: 100001
-                }
-              });
+            }).then( (res) => {
+              if (res) {
+                this.$message({
+                  message: '验证成功',
+                  type: 'success'
+                });
+                this.$router.push({
+                  path: '/home',
+                  params: {
+                    id: 100001
+                  }
+                });
+              } else {
+                this.$message({
+                  message: '验证失败',
+                  type: 'error'
+                });
+              }
             });
           } else {
             this.loading = false;

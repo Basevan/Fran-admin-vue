@@ -5,8 +5,11 @@ import userModule from './system/user/index';
 import roleModule from './system/role/index';
 
 import employeeModule from './company/employee';
+import departmentModule from './company/department';
+import jobModule from './company/job';
 
 import processModule from './process/index';
+
 
 
 Vue.use(Vuex)
@@ -19,7 +22,7 @@ const store = new Vuex.Store({
   state: {
     userDetail: {},
     loading: false,
-    navCollapse: document.body.clientWidth < 800 || false,
+    navCollapse: document.body.clientWidth < 1080 || false,
     count: 0,
     domain: '',
     allData: []
@@ -40,11 +43,9 @@ const store = new Vuex.Store({
     },
     // 菜单隐藏显示
     setCollapse(state, payload) {
-      if (payload) {
-        state.navCollapse = payload;
-      } else {
-        state.navCollapse = !state.navCollapse;
-      }
+      console.log(payload);
+      state.loading = true;
+        state.navCollapse = payload ? payload : !state.navCollapse;
     },
     closeLoading(state, payload) {
 
@@ -58,6 +59,9 @@ const store = new Vuex.Store({
   getters: {
     getCount: state => {
       return state.count;
+    },
+    loading: state => {
+      return state.loading;
     }
   },
   modules: {
@@ -66,6 +70,8 @@ const store = new Vuex.Store({
     roleModule,
 
     employeeModule,
+    departmentModule,
+    jobModule,
 
     processModule,
   }

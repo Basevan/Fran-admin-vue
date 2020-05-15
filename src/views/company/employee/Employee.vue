@@ -160,8 +160,12 @@
         this.addVisible = true;
       },
       editUser(row) {
-        this.addVisible = true;
-        console.log(row);
+        this.$router.push({
+          name: 'employeeDetail',
+          params: {
+            detail: row,
+          }
+        })
       },
       //改变用户状态
       transferStatus(row) {

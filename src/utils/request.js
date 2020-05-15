@@ -48,6 +48,17 @@ const request = async (options) => {
         return window.location.href = url;
       }
 
+      // 未注册
+      if (data.code === 602) {
+        Notification.error({
+          title: '错误',
+          message: data.msg
+        });
+        return {
+          data
+        }
+      }
+
       // 没有权限
       if (data.code === 502 && options.isRedirect) {
         router.replace('/noPermission');
@@ -66,7 +77,6 @@ const request = async (options) => {
     }
 
     return {
-
       data
     };
   } catch (err) {
