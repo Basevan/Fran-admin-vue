@@ -13,6 +13,10 @@ import QS from 'qs'
 Vue.prototype.qs = QS;
 /* 引入vuex */
 import store from './store';
+Vue.use(VCharts)
+
+// 引入图表
+import VCharts from 'v-charts';
 
 import SlideVerify from 'vue-monoplasty-slide-verify';
 
