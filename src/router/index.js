@@ -41,7 +41,7 @@ const router = [
       {
         path: '/company/employee',
         name: 'employee',
-        component: () => import('../views/company/Employee'),
+        component: () => import('../views/company/employee/Employee'),
         meta: {
           title: '员工管理',
           index: '4',
@@ -50,7 +50,7 @@ const router = [
       {
         path: '/company/job',
         name: 'job',
-        component: () => import('../views/company/Job'),
+        component: () => import('../views/company/job/Job'),
         meta: {
           title: '岗位管理',
           index: '5',
@@ -59,7 +59,7 @@ const router = [
       {
         path: '/company/department',
         name: 'department',
-        component: () => import('../views/company/Department'),
+        component: () => import('../views/company/depaerment/Department'),
         meta: {
           title: '部门管理',
           index: '6',
@@ -97,11 +97,21 @@ const router = [
       {
         path: '/system/role',
         name: 'role',
-        component: () => import('../views/system/Role'),
+        component: () => import('../views/system/role/Role'),
         meta: {
           title: '角色管理',
           index: '10',
         },
+      },
+      {
+        path: '/system/role/user',
+        name: 'roleUser',
+        component: () => import('../views/system/role/RoleUser'),
+        meta: {
+          title: '角色分配用户',
+          index: '101',
+        },
+        hidden: true,
       },
       {
         path: '/system/menu',
@@ -203,6 +213,16 @@ const router = [
   {
     path: '*',
     component: () => import(/* webpackChunkName: "NotFind" */ '../views/error/NotFind.vue'),
+    hidden: true
+  },
+  {
+    path: '/company/employee/detail',
+    name: 'employeeDetail',
+    component: () => import('../views/company/employee/EmployeeDetail'),
+    meta: {
+      title: '员工信息详情',
+      index: '41',
+    },
     hidden: true
   },
 ];
