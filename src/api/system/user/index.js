@@ -18,9 +18,9 @@ export const userDetail = async (params) => {
 
 export const userList = async (params) => {
   return request({
-    method: 'get',
+    method: 'post',
     url: '/user/list',
-    params: params
+    data: params
   })
 };
 

@@ -1,13 +1,13 @@
 <template>
   <div>
 
-    <el-card>
+    <el-card v-if="!showSearchCard">
       <el-form v-model="queryForm" :inline="true" label-width="80px" label-position="left">
         <el-form-item label="用户名称">
-          <el-input v-model="queryForm.name" placeholder="根据用户名称查询"></el-input>
+          <el-input v-model="queryForm.userName" placeholder="根据用户名称查询"></el-input>
         </el-form-item>
         <el-form-item label="电话号码">
-          <el-input v-model="queryForm.phone" placeholder="根据电话号码查询"></el-input>
+          <el-input v-model="queryForm.userPhone" placeholder="根据电话号码查询"></el-input>
         </el-form-item>
         <el-form-item label="用户状态">
           <el-select v-model="queryForm.status" clearable filterable>
@@ -17,9 +17,6 @@
         </el-form-item>
         <el-form-item>
           <el-button @click="searchUser">查 询</el-button>
-        </el-form-item>
-        <el-form-item style="float: right;">
-          <el-button @click="createUser">录入新员工</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -81,7 +78,7 @@
       </el-table-column>
     </el-table>
 
-    <el-dialog title="编辑/创建用户" :visible.sync="addVisible">
+    <el-dialog title="编辑" :visible.sync="addVisible">
       <el-form :model="addForm" label-width="80px" ref="form" :rules="rules">
         <el-form-item label="名字" prop="name">
           <el-input v-model="addForm.name" placeholder="请输入用户名"></el-input>
@@ -107,6 +104,7 @@
 
   export default {
     name: "User",
+    props: ['showSearchCard'],
     data() {
       return {
         queryForm: {},
@@ -146,6 +144,7 @@
         changeStatus: 'userModule/changeStatus',
       }),
       searchUser() {
+        this.getUserList(this.queryForm);
       },
       createUser() {
         this.addVisible = true;
@@ -198,7 +197,9 @@
       },
     },
     created() {
-      this.getUserList();
+      if (!this.showSearchCard) {
+        this.getUserList();
+      }
     }
   }
 </script>

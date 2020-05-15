@@ -22,6 +22,10 @@ const userModule = {
           state.username = cookie.substring(cookie.indexOf('=') + 1,cookie.length);
         }
       })
+    },
+
+    setUserList(state) {
+      state.userList = [];
     }
 
   },
@@ -33,6 +37,9 @@ const userModule = {
 
       if (data.code === 200) {
         state.userDetail = data.data;
+        return true;
+      } else {
+        return false;
       }
     },
 
