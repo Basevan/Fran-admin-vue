@@ -21,6 +21,8 @@
       </el-form>
     </el-card>
 
+    <el-button v-if="showSearchCard" type="text" size="mini" @click="addRoleUser">增加</el-button>
+
     <el-table :data="userList"
               style="width: 100%; margin-top: 20px;"
               :header-cell-style="{background: '#eaeaea',color:'#606266'}">
@@ -72,8 +74,10 @@
           <label>操作</label>
         </template>
         <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click="editUser(scope.row)">编辑</el-button>
-          <el-button type="danger" size="mini">删除</el-button>
+          <el-button v-if="!showSearchCard" type="primary" size="mini" @click="editUser(scope.row)">编辑</el-button>
+          <el-button v-if="!showSearchCard" type="danger" size="mini" @click="delUser">删除</el-button>
+          <el-button v-if="showSearchCard" type="primary" size="mini" @click="addRoleUser">增加</el-button>
+          <el-button v-if="showSearchCard" type="danger" size="mini" @click="delRoleUser">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -95,6 +99,76 @@
           <el-button @click="confirmEdit('form')" type="info">批量导入</el-button>
         </el-form-item>
       </el-form>
+    </el-dialog>
+
+    <el-dialog title="增加角色用户" :visible.sync="addRoleUserVisible" width="80%">
+      <el-card>
+        <el-form v-model="queryForm" :inline="true" label-width="80px" label-position="left">
+          <el-form-item label="用户名称">
+            <el-input v-model="queryForm.userName" placeholder="根据用户名称查询"></el-input>
+          </el-form-item>
+          <el-form-item label="电话号码">
+            <el-input v-model="queryForm.userPhone" placeholder="根据电话号码查询"></el-input>
+          </el-form-item>
+          <el-form-item label="用户状态">
+            <el-select v-model="queryForm.status" clearable filterable>
+              <el-option v-for="option in statusOption" :label="option.label" :value="option.value"
+                         :key="option.value"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-button @click="searchAllUser">查 询</el-button>
+          </el-form-item>
+        </el-form>
+      </el-card>
+
+      <el-table :data="allUser"
+                style="width: 100%; margin-top: 20px;"
+                :header-cell-style="{background: '#eaeaea',color:'#606266'}">
+        <el-table-column
+          width="90"
+          prop="userId"
+          label="用户ID">
+        </el-table-column>
+        <el-table-column
+          width="90"
+          prop="userName"
+          label="登录名称">
+        </el-table-column>
+        <el-table-column
+          width="90"
+          prop="userName"
+          label="用户名称">
+        </el-table-column>
+        <el-table-column
+          prop="userPhone"
+          label="手机">
+        </el-table-column>
+        <el-table-column
+          prop="userMail"
+          label="邮箱">
+        </el-table-column>
+        <el-table-column
+          prop="status"
+          label="用户状态">
+          <template slot-scope="scope">
+            {{scope.row.status === 1 ? '应用' : '停用'}}
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="updatedTime"
+          label="修改时间">
+        </el-table-column>
+        <el-table-column
+          label="操作">
+          <template slot="header" slot-scope="scope">
+            <label>操作</label>
+          </template>
+          <template slot-scope="scope">
+            <el-button v-if="showSearchCard" type="text" size="mini" @click="choseUser(scope.row)">选择</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </el-dialog>
   </div>
 </template>
@@ -125,14 +199,19 @@
           {label: '禁用', value: 0}
         ],
         addVisible: false,
+        addRoleUserVisible: false,
       }
     },
     computed: {
       ...mapState([
-        'userModule'
+        'userModule',
+        'roleModule',
       ]),
       userList() {
         return this.userModule.userList;
+      },
+      allUser() {
+        return this.userModule.allUser;
       },
       status() {
         return this.userModule.status;
@@ -141,10 +220,15 @@
     methods: {
       ...mapActions({
         getUserList: 'userModule/getUserList',
+        getAllUser: 'userModule/getAllUser',
         changeStatus: 'userModule/changeStatus',
+        saveRoleUser: 'roleModule/saveRoleUser',
       }),
       searchUser() {
         this.getUserList(this.queryForm);
+      },
+      searchAllUser() {
+        this.getAllUser(this.queryForm);
       },
       createUser() {
         this.addVisible = true;
@@ -194,6 +278,27 @@
             return false;
           }
         })
+      },
+      // 删除用户
+      delUser() {},
+      // 增加角色用户
+      addRoleUser() {
+        this.getAllUser();
+        this.addRoleUserVisible = true;
+      },
+      // 删除角色用户
+      delRoleUser() {},
+      // 选择用户添加进某个角色
+      choseUser(row) {
+        let roleId = this.$route.query.roleId || 0;
+        let userId = row.id || 0;
+        this.saveRoleUser({
+          roleId: roleId,
+          userId: userId,
+        }).then( () => {
+          this.addRoleUserVisible = false;
+          this.$emit('loadPage');
+        });
       },
     },
     created() {

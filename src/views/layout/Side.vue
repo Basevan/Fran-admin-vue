@@ -10,7 +10,7 @@
     </div>
 
     <el-menu class="layout-menu-left" :default-active="pathname" :unique-opened="true" :collapse="collapse">
-      <template v-for="item in router.options.routes">
+      <template v-for="item in routers">
 
         <!-- 第一层目录 -->
         <el-submenu :index="item.meta.index" v-if="item.children && !item.hidden">
@@ -74,7 +74,8 @@
     },
     computed: {
       ...mapState([
-        'menuModule'
+        'menuModule',
+        'userModule',
       ]),
       collapse() {
         return this.$store.state.navCollapse;
@@ -88,6 +89,9 @@
       getRefresh() {
         return this.$store.state.refresh;
       },
+      permissionList() {
+        return this.userModule.permissionList;
+      }
     },
     methods: {
       ...mapActions({

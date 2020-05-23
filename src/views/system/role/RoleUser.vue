@@ -1,6 +1,6 @@
 <template>
  <div>
-   <user :show-search-card="true"></user>
+   <user :show-search-card="true" @loadPage="loadPage"></user>
  </div>
 </template>
 

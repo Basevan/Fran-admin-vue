@@ -7,9 +7,11 @@ import roleModule from './system/role/index';
 import employeeModule from './company/employee';
 import departmentModule from './company/department';
 import jobModule from './company/job';
+import titleModule from './company/title';
 
 import processModule from './process/index';
 
+import { router } from '@/router';
 
 
 Vue.use(Vuex)
@@ -62,6 +64,10 @@ const store = new Vuex.Store({
     },
     loading: state => {
       return state.loading;
+    },
+    // 过滤没有权限以及不显示的路由
+    routes: () => {
+      return filterRouter(router);
     }
   },
   modules: {
@@ -72,10 +78,43 @@ const store = new Vuex.Store({
     employeeModule,
     departmentModule,
     jobModule,
+    titleModule,
 
     processModule,
   }
 
 });
+
+/**
+ * 过滤路由，供导航栏使用，没有权限不显示
+ * @param routers {Object} 路由对象
+ */
+const filterRouter = (routers) => {
+
+  let permissionList = localStorage.getItem('permission').split(',');
+  console.log(...permissionList);
+
+  const newRouter = routers.filter((route) => !route.hidden || route.hidden === undefined);
+
+  // 过滤子路由
+  newRouter.forEach(route => {
+    let routes = route.children.filter(elem => hasPermission(elem.path,permissionList));
+    route.children = routes;
+    if (routes.length === 0) {
+      route.hidden = true;
+    }
+  });
+  return newRouter;
+};
+
+export const hasPermission = (path,permissionList) => {
+  let flag = false;
+  permissionList.forEach(permission => {
+    if (path === permission) {
+      flag = true;
+    }
+  });
+  return flag;
+};
 
 export default store;

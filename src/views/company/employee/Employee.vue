@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <el-card>
       <el-form v-model="queryForm" :inline="true" label-width="80px" label-position="left">
         <el-form-item>

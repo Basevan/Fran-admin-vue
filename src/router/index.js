@@ -7,7 +7,7 @@ import layout from "../views/layout/Layout.vue";
 
 Vue.use(Router)
 
-const router = [
+export const router = [
   {
     path: '',
     hidden: false,
@@ -114,6 +114,16 @@ const router = [
         hidden: true,
       },
       {
+        path: '/system/permission/list',
+        name: 'permissions',
+        component: () => import('../views/system/permission/List'),
+        meta: {
+          title: '权限列表',
+          index: '19',
+        },
+        hidden: false,
+      },
+      {
         path: '/system/menu',
         name: 'menu',
         component: () => import('../views/system/Menu'),
@@ -203,7 +213,8 @@ const router = [
     component: () => import('../views/login/login'),
     meta: {
       title: '登录'
-    }
+    },
+    hidden: true
   },
   {
     path: '/noPermission',

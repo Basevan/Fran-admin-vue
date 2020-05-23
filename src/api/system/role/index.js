@@ -3,7 +3,7 @@ import request from '../../../utils/request';
 export const roleList = async (params) => {
   return request({
     method: 'get',
-    url: '/role/list',
+    url: '/system/role/list',
     params: params
   })
 };
@@ -11,7 +11,7 @@ export const roleList = async (params) => {
 export const changeStatus = async (params) => {
   return request({
     method: 'post',
-    url: '/role/status',
+    url: '/system/role/status',
     data: params
   })
 };
@@ -19,7 +19,7 @@ export const changeStatus = async (params) => {
 export const save = async (params) => {
   return request({
     method: 'post',
-    url: '/role/save',
+    url: '/system/role/save',
     data: params
   })
 };
@@ -27,7 +27,7 @@ export const save = async (params) => {
 export const roleUserList = async (params) => {
   return request({
     method: 'get',
-    url: '/role/user/list',
+    url: '/system/role/user/list',
     params: params
   })
 };
@@ -35,7 +35,7 @@ export const roleUserList = async (params) => {
 export const saveRoleUser = async (params) => {
   return request({
     method: 'post',
-    url: '/role/user/save',
+    url: '/system/role/user/save',
     data: params
   })
 };

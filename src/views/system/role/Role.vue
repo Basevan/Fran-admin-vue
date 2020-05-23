@@ -68,10 +68,11 @@
         <template slot-scope="scope">
           <el-popover
             placement="left-start"
-            width="240"
+            width="330"
             trigger="hover">
             <el-button type="danger" size="mini" @click="editRole(scope.row)">删 除</el-button>
-            <el-button type="info" size="mini" @click="addUser(scope.row)">添加用户</el-button>
+            <el-button type="info" size="mini" @click="editPermission(scope.row)">编辑权限</el-button>
+            <el-button type="info" size="mini" @click="addUser(scope.row)">角色用户</el-button>
             <el-button type="primary" size="mini" @click="editRole(scope.row)">编 辑</el-button>
             <label slot="reference"><i class="el-icon-edit"></i></label>
           </el-popover>
@@ -164,6 +165,10 @@
             roleId: row.id,
           }
         });
+      },
+      // 角色编辑权限
+      editPermission() {
+
       },
       transferStatus(row) {
         row.status = row.status === 1 ? 0 : 1;

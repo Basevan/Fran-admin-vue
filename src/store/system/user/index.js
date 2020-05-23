@@ -7,7 +7,9 @@ const userModule = {
   namespaced: true,
   state: {
     userDetail: {},
+    permissionList: [],
     userList: [],
+    allUser: [],
     username: '',
     status: '',
   },
@@ -18,7 +20,7 @@ const userModule = {
       let cookies = document.cookie.split(';');
       cookies.forEach(cookie => {
         let userName = cookie.toString();
-        if ('userName' === userName.substring(1,9)) {
+        if (userName.includes('userName')) {
           state.username = cookie.substring(cookie.indexOf('=') + 1,cookie.length);
         }
       })
@@ -37,6 +39,8 @@ const userModule = {
 
       if (data.code === 200) {
         state.userDetail = data.data;
+        state.permissionList = data.data.permissions;
+        localStorage.setItem('permission',state.permissionList);
         return true;
       } else {
         return false;
@@ -63,6 +67,15 @@ const userModule = {
 
       if (data.code === 200) {
         state.userList = data.data;
+      }
+    },
+
+    async getAllUser({state, commit, dispatch}, payload) {
+
+      const {data} = await userList(payload);
+
+      if (data.code === 200) {
+        state.allUser = data.data;
       }
     },
 
