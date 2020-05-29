@@ -3,7 +3,7 @@
     <el-card>
       <el-form v-model="queryForm" :inline="true" label-width="80px" label-position="left">
         <el-form-item>
-          <el-input v-model="queryForm.name" placeholder="根据用户名查询"></el-input>
+          <el-input v-model="queryForm.employeeName" placeholder="根据用户名查询"></el-input>
         </el-form-item>
         <el-form-item>
           <el-input v-model="queryForm.department" placeholder="根据部门查询"></el-input>
@@ -80,10 +80,18 @@
         <template slot-scope="scope">
           <el-button type="info" size="mini" @click="editUser(scope.row)">详情</el-button>
           <el-button type="primary" size="mini" @click="editUser(scope.row)">编辑</el-button>
-          <el-button type="danger" size="mini">删除</el-button>
+          <el-button type="danger" size="mini" @click="delEmployee(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
+
+    <el-pagination
+      :page-size="pageSize"
+      :current-page="currentPage"
+      layout="total, prev, pager, next"
+      :total="totalRecord"
+      @current-change="handleCurrentChange">
+    </el-pagination>
 
     <el-dialog title="编辑/创建用户" :visible.sync="addVisible">
       <el-form :model="addForm" label-width="80px" ref="form" :rules="rules">
@@ -114,10 +122,11 @@
     data() {
       return {
         queryForm: {
-          name: '',
+          employeeName: '',
           department: '',
           job: '',
           status: '',
+          currentPage: 1,
         },
         addForm: {},
         rules: {
@@ -145,15 +154,26 @@
       employeeList() {
         return this.employeeModule.employeeList;
       },
+      currentPage() {
+        return this.employeeModule.currentPage;
+      },
+      pageSize() {
+        return this.employeeModule.pageSize;
+      },
+      totalRecord() {
+        return this.employeeModule.totalRecord;
+      }
     },
     methods: {
       ...mapActions({
         getEmployeeList: 'employeeModule/employeeList',
+        delEmployees: 'employeeModule/delEmployee'
       }),
       loadPage() {
-        this.getEmployeeList();
+        this.getEmployeeList(this.queryForm);
       },
       searchUser() {
+        this.getEmployeeList(this.queryForm);
       },
       createUser() {
         this.addVisible = true;
@@ -165,6 +185,25 @@
             detail: row,
           }
         })
+      },
+      delEmployee(row) {
+        this.$confirm("确定删除这个员工的信息？","提示",{
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: "warning"
+        }).then(() => {
+          this.delEmployees({
+            id: row.id,
+          }).then(() => {
+            this.loadPage();
+          });
+        }).catch((err) => {
+          console.log(err);
+          this.$notify.info({
+            title: '取消',
+            message: '已取消删除'
+          });
+        });
       },
       //改变用户状态
       transferStatus(row) {
@@ -187,7 +226,8 @@
               type: 'success'
             });
           });
-        }).catch(() => {
+        }).catch((err) => {
+          console.log(err);
           this.$notify.info({
             title: '取消',
             message: '已取消修改'
@@ -210,7 +250,11 @@
       },
       changeMail(mail) {
         return mail.substring(0,mail.indexOf('@'));
-      }
+      },
+      handleCurrentChange(val) {
+        this.queryForm.currentPage = val;
+        this.loadPage(this.queryForm);
+      },
     },
     created() {
       this.loadPage();

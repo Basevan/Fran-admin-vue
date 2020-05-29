@@ -14,11 +14,14 @@ const roleModule = {
 
   actions: {
     async getRoleList({state, commit, dispatch}, payload) {
+      commit('showLoading', null, { root: true});
       const {data} = await roleList(payload);
 
       if (data.code === 200) {
         state.list = data.data;
       }
+
+      commit('closeLoading', null, { root: true});
     },
 
     async changeStatus({ state, commit, dispatch }, payload) {

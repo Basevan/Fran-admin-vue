@@ -62,12 +62,15 @@ const userModule = {
     },
 
     async getUserList({state, commit, dispatch}, payload) {
+      commit('showLoading', null, { root: true});
 
       const {data} = await userList(payload);
 
       if (data.code === 200) {
         state.userList = data.data;
       }
+
+      commit('closeLoading', null, { root: true});
     },
 
     async getAllUser({state, commit, dispatch}, payload) {

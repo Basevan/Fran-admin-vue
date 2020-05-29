@@ -1,6 +1,8 @@
 import {
-  jobList
+  jobList, updateJob, delJob
 } from "../../../api/company/index";
+import { Notification } from 'element-ui';
+
 
 const jobModule = {
   namespaced: true,
@@ -15,6 +17,7 @@ const jobModule = {
   actions: {
 
     async jobList({ state, commit, dispatch }, payload) {
+      commit('showLoading', null, { root: true});
 
       const params = {
         ...payload,
@@ -31,7 +34,35 @@ const jobModule = {
         state.totalRecord = data.data.paginator.totalRecord;
       }
 
-    }
+      commit('closeLoading', null, { root: true});
+
+    },
+
+    async updateJob({ state, commit, dispatch}, payload) {
+
+      const { data } = await updateJob(payload);
+
+      if (data.code === 200) {
+        Notification.success({
+          title: '成功',
+          message: '修改成功'
+        });
+      }
+    },
+
+    async delJob({ state, commit, dispatch}, payload) {
+
+      const { data } = await delJob(payload);
+
+      if (data.code === 200) {
+        Notification.success({
+          title: '成功',
+          message: '删除成功'
+        });
+      }
+    },
+
+
   }
 };
 

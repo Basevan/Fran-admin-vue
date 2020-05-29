@@ -31,6 +31,14 @@ const store = new Vuex.Store({
   },
   mutations: {
 
+    showLoading(state) {
+      state.loading = true;
+    },
+
+    closeLoading(state) {
+      state.loading = false;
+    },
+
     changeDomain(state,newDomain){
       state.domain = newDomain;
     },
@@ -49,9 +57,6 @@ const store = new Vuex.Store({
       state.loading = true;
         state.navCollapse = payload ? payload : !state.navCollapse;
     },
-    closeLoading(state, payload) {
-
-    }
   },
 
   actions: {
@@ -90,12 +95,8 @@ const store = new Vuex.Store({
  * @param routers {Object} 路由对象
  */
 const filterRouter = (routers) => {
-
   let permissionList = localStorage.getItem('permission').split(',');
-  console.log(...permissionList);
-
   const newRouter = routers.filter((route) => !route.hidden || route.hidden === undefined);
-
   // 过滤子路由
   newRouter.forEach(route => {
     let routes = route.children.filter(elem => hasPermission(elem.path,permissionList));
@@ -106,7 +107,6 @@ const filterRouter = (routers) => {
   });
   return newRouter;
 };
-
 export const hasPermission = (path,permissionList) => {
   let flag = false;
   permissionList.forEach(permission => {

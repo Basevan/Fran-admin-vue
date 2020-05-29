@@ -8,6 +8,29 @@ export const departmentList  = async (params) => {
   })
 };
 
+export const departments  = async () => {
+  return request({
+    method: 'get',
+    url: '/company/department/list/all',
+  })
+};
+
+export const updateDepartment  = async (params) => {
+  return request({
+    method: 'post',
+    url: '/company/department/update',
+    data: params
+  })
+};
+
+export const deleteDepartment  = async (params) => {
+  return request({
+    method: 'post',
+    url: '/company/department/delete',
+    data: params
+  })
+};
+
 export const jobList  = async (params) => {
   return request({
     method: 'get',
@@ -15,3 +38,20 @@ export const jobList  = async (params) => {
     params: params
   })
 };
+
+export const updateJob  = async (params) => {
+  return request({
+    method: 'post',
+    url: '/company/job/update',
+    data: params
+  })
+};
+
+export const delJob  = async (params) => {
+  return request({
+    method: 'post',
+    url: '/company/job/delete',
+    data: params
+  })
+};
+
