@@ -1,5 +1,5 @@
 import {
-  jobList
+  titleList
 } from "../../../api/company/index";
 
 const titleModule = {
@@ -14,7 +14,7 @@ const titleModule = {
 
   actions: {
 
-    async jobList({ state, commit, dispatch }, payload) {
+    async titleList({ state, commit, dispatch }, payload) {
 
       const params = {
         ...payload,
@@ -22,7 +22,7 @@ const titleModule = {
         currentPage: payload.currentPage || 1,
       };
 
-      const { data } = await jobList(params);
+      const { data } = await titleList(params);
 
       if (data.code === 200) {
         state.jobList = data.data.data;

@@ -21,7 +21,8 @@ const userModule = {
       cookies.forEach(cookie => {
         let userName = cookie.toString();
         if (userName.includes('userName')) {
-          state.username = cookie.substring(cookie.indexOf('=') + 1,cookie.length);
+          let username = cookie.substring(cookie.indexOf('=') + 1,cookie.length);
+          state.username = username;
         }
       })
     },
@@ -33,6 +34,19 @@ const userModule = {
   },
 
   actions: {
+
+    getUserName({state, commit, dispatch}, payload) {
+      let cookies = document.cookie.split(';');
+      cookies.forEach(cookie => {
+        let userName = cookie.toString();
+        if (userName.includes('userName')) {
+          let username = cookie.substring(cookie.indexOf('=') + 1,cookie.length);
+          state.username = username;
+          dispatch('login',{userName: username});
+        }
+      })
+    },
+
     async login({state, commit, dispatch}, payload) {
 
       const {data} = await login(payload);

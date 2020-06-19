@@ -25,7 +25,8 @@
 
     <el-table :data="roleList"
       style="width: 100%; margin-top: 20px;"
-      :header-cell-style="{background: '#eaeaea',color:'#606266'}">
+      :header-cell-style="{background: '#eaeaea',color:'#606266'}"
+      v-loading="loading">
       <el-table-column
         prop="id"
         label="角色编号">
@@ -70,7 +71,7 @@
             placement="left-start"
             width="330"
             trigger="hover">
-            <el-button type="danger" size="mini" @click="editRole(scope.row)">删 除</el-button>
+            <el-button type="danger" size="mini" @click="delRole(scope.row)">删 除</el-button>
             <el-button type="info" size="mini" @click="editPermission(scope.row)">编辑权限</el-button>
             <el-button type="info" size="mini" @click="addUser(scope.row)">角色用户</el-button>
             <el-button type="primary" size="mini" @click="editRole(scope.row)">编 辑</el-button>
@@ -126,7 +127,8 @@
     },
     computed: {
       ...mapState([
-        'roleModule'
+        'roleModule',
+        "loading"
       ]),
       roleList() {
         return this.roleModule.list;
@@ -145,13 +147,30 @@
         this.getRoleList();
       },
       // 搜索
-      searchRole() {},
+      searchRole() {
+
+      },
       // 新建角色
       createRole() {
         this.addForm = {
           sort: this.roleList.length + 1,
         };
         this.editVisible = true;
+      },
+      delRole(row) {
+        this.$confirm("确定删除这个角色的信息？","提示",{
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: "warning"
+        }).then(() => {
+          this.editVisible = false;
+        }).catch((err) => {
+          console.log(err);
+          this.$notify.info({
+            title: '取消',
+            message: '已取消删除'
+          });
+        });
       },
       editRole(row) {
         this.addForm = {...row};
@@ -167,8 +186,13 @@
         });
       },
       // 角色编辑权限
-      editPermission() {
-
+      editPermission(row) {
+        this.$router.push({
+          path: '/system/permission/list',
+          query: {
+            roleId: row.id
+          }
+        })
       },
       transferStatus(row) {
         row.status = row.status === 1 ? 0 : 1;

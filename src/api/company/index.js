@@ -55,3 +55,11 @@ export const delJob  = async (params) => {
   })
 };
 
+export const titleList  = async (params) => {
+  return request({
+    method: 'get',
+    url: '/company/title/list',
+    params: params
+  })
+};
+

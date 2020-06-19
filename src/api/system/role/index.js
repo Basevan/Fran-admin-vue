@@ -39,3 +39,34 @@ export const saveRoleUser = async (params) => {
     data: params
   })
 };
+
+export const delRoleUser = async (params) => {
+  return request({
+    method: 'post',
+    url: '/system/role/user/delete',
+    data: params
+  })
+};
+
+export const permissionList = async () => {
+  return request({
+    method: 'get',
+    url: '/system/role/permission/list',
+  })
+};
+
+export const rolePermissionList = async (params) => {
+  return request({
+    method: 'get',
+    url: '/system/role/rolePermission/list',
+    params: params
+  })
+};
+
+export const updateRolePermissionList = async (params) => {
+  return request({
+    method: 'post',
+    url: '/system/role/permission/update',
+    data: params
+  })
+};

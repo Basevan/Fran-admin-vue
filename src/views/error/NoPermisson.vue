@@ -34,10 +34,11 @@
 		},
 		methods: {
 			back() {
-				this.$router.push('home');
+				this.$router.go(-1);
 			},
 			loginOut() {
 				alert('退出点击！');
+        this.$router.push('/login');
 			}
 		}
 	};

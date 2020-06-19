@@ -21,7 +21,7 @@ const jobModule = {
 
       const params = {
         ...payload,
-        pageSize: state.pageSize,
+        pageSize: payload.pageSize || state.pageSize,
         currentPage: payload.currentPage || 1,
       };
 

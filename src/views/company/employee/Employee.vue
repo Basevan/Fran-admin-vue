@@ -3,13 +3,19 @@
     <el-card>
       <el-form v-model="queryForm" :inline="true" label-width="80px" label-position="left">
         <el-form-item>
-          <el-input v-model="queryForm.employeeName" placeholder="根据用户名查询"></el-input>
+          <el-input v-model="queryForm.employeeName" clearable placeholder="根据用户名查询"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input v-model="queryForm.department" placeholder="根据部门查询"></el-input>
+          <el-select size="medium" v-model="queryForm.department" clearable filterable placeholder="归属部门">
+            <el-option v-for="option in departmentList" :label="option.name" :value="option.id"
+                       :key="option.id"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
-          <el-input v-model="queryForm.job" placeholder="根据岗位查询"></el-input>
+          <el-select size="medium" v-model="queryForm.job" clearable filterable placeholder="根据岗位查询">
+            <el-option v-for="option in jobList" :label="option.jobName" :value="option.id"
+                       :key="option.id"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-select v-model="queryForm.status" clearable filterable placeholder="用户状态">
@@ -27,7 +33,8 @@
     </el-card>
     <el-table :data="employeeList"
               style="width: 100%; margin-top: 20px;"
-              :header-cell-style="{background: '#eaeaea',color:'#606266'}">
+              :header-cell-style="{background: '#eaeaea',color:'#606266'}"
+              v-loading="loading">
       <el-table-column
         prop="employeeName"
         label="员工名称">
@@ -149,7 +156,10 @@
     },
     computed: {
       ...mapState([
-        'employeeModule'
+        'employeeModule',
+        'departmentModule',
+        'jobModule',
+        'loading',
       ]),
       employeeList() {
         return this.employeeModule.employeeList;
@@ -162,15 +172,28 @@
       },
       totalRecord() {
         return this.employeeModule.totalRecord;
-      }
+      },
+      departmentList() {
+        return this.departmentModule.departments;
+      },
+      jobList() {
+        return this.jobModule.jobList;
+      },
     },
     methods: {
       ...mapActions({
         getEmployeeList: 'employeeModule/employeeList',
-        delEmployees: 'employeeModule/delEmployee'
+        delEmployees: 'employeeModule/delEmployee',
+        getDepartments: 'departmentModule/departments',
+        getJobList: 'jobModule/jobList',
       }),
       loadPage() {
         this.getEmployeeList(this.queryForm);
+        this.getDepartments();
+        this.getJobList({
+          currentPage: 1,
+          pageSize: 20,
+        });
       },
       searchUser() {
         this.getEmployeeList(this.queryForm);

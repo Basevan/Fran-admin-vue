@@ -215,7 +215,7 @@
       confirmEdit(form) {
         this.$refs[form].validate( valid => {
           if (valid) {
-            this.update(this.addForm).then(() => {
+            this.update(this.addForm).then((res) => {
               this.loadPage();
             });
             this.addVisible = false;

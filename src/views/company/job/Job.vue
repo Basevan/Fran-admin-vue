@@ -3,7 +3,7 @@
     <el-card>
       <el-form v-model="queryForm" :inline="true" label-width="80px" label-position="left">
         <el-form-item>
-          <el-input size="medium" v-model="queryForm.idOrName" placeholder="根据职位名称查询"></el-input>
+          <el-input size="medium" v-model="queryForm.idOrName" clearable placeholder="根据职位名称查询"></el-input>
         </el-form-item>
         <el-form-item>
           <el-select size="medium" v-model="queryForm.status" clearable filterable placeholder="状态">

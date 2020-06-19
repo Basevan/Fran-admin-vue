@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <slide-verify ref="slideblock" @success="onSuccess" @again="onAgain" @fulfilled="onFulfilled" @fail="onFail" @refresh="onRefresh" :slider-text="text" :imgs="imgs" :accuracy="accuracy"></slide-verify>
-    <div>{{msg}}</div>
-    <button class="btn" @click="handleClick">在父组件可以点我刷新哦</button>
+    <h3 style="text-align: center" > 暂未开放</h3>
+<!--    <slide-verify ref="slideblock" @success="onSuccess" @again="onAgain" @fulfilled="onFulfilled" @fail="onFail" @refresh="onRefresh" :slider-text="text" :imgs="imgs" :accuracy="accuracy"></slide-verify>-->
+<!--    <div>{{msg}}</div>-->
+<!--    <button class="btn" @click="handleClick">刷新</button>-->
   </div>
 </template>
 

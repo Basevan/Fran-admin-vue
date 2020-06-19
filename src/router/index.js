@@ -22,7 +22,7 @@ export const router = [
       {
         path: '/home',
         meta: {
-          title: '了解Fran',
+          title: '首页驾驶舱',
           index: '2',
         },
         component: () => import(/* webpackChunkName: "home" */ '../views/home.vue'),
@@ -33,7 +33,7 @@ export const router = [
     path: '',
     component: layout,
     meta: {
-      title: '公司管理',
+      title: '组织架构管理',
       icon: 'el-icon-office-building',
       index: '3',
     },
@@ -68,7 +68,7 @@ export const router = [
       {
         path: '/company/title',
         name: 'title',
-        component: () => import('../views/company/Title'),
+        component: () => import('../views/company/title/Title'),
         meta: {
           title: '职称管理',
           index: '7',
@@ -80,7 +80,7 @@ export const router = [
     path: '',
     component: layout,
     meta: {
-      title: '系统管理',
+      title: '用户管理',
       icon: 'el-icon-setting',
       index: '8'
     },
@@ -132,6 +132,17 @@ export const router = [
           index: '11',
         },
       },
+    ]
+  },
+  {
+    path: '',
+    component: layout,
+    meta: {
+      title: '系统参数',
+      icon: 'el-icon-chat-line-round',
+      index: '19',
+    },
+    children: [
       {
         path: '/system/dictionary',
         name: 'dictionary',

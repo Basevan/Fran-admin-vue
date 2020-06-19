@@ -25,10 +25,11 @@
 
     <el-table :data="userList"
               style="width: 100%; margin-top: 20px;"
-              :header-cell-style="{background: '#eaeaea',color:'#606266'}">
+              :header-cell-style="{background: '#eaeaea',color:'#606266'}"
+              v-loading="loading">
       <el-table-column
         width="100"
-        prop="userId"
+        prop="id"
         label="用户ID">
       </el-table-column>
       <el-table-column
@@ -75,28 +76,28 @@
         </template>
         <template slot-scope="scope">
           <el-button v-if="!showSearchCard" type="primary" size="mini" @click="editUser(scope.row)">编辑</el-button>
-          <el-button v-if="!showSearchCard" type="danger" size="mini" @click="delUser">删除</el-button>
+          <el-button v-if="!showSearchCard" type="danger" size="mini" @click="delUser(scope.row)">删除</el-button>
           <el-button v-if="showSearchCard" type="primary" size="mini" @click="addRoleUser">增加</el-button>
-          <el-button v-if="showSearchCard" type="danger" size="mini" @click="delRoleUser">删除</el-button>
+          <el-button v-if="showSearchCard" type="danger" size="mini" @click="delRoleUser(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <el-dialog title="编辑" :visible.sync="addVisible">
       <el-form :model="addForm" label-width="80px" ref="form" :rules="rules">
-        <el-form-item label="名字" prop="name">
-          <el-input v-model="addForm.name" placeholder="请输入用户名"></el-input>
+        <el-form-item label="名字" prop="userName">
+          <el-input v-model="addForm.userName" placeholder="请输入用户名"></el-input>
         </el-form-item>
-        <el-form-item label="手机号" prop="phone">
-          <el-input v-model="addForm.phone" placeholder="请输入手机号"></el-input>
+        <el-form-item label="手机号" prop="userPhone">
+          <el-input v-model="addForm.userPhone" placeholder="请输入手机号"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="addForm.email" placeholder="请输入员工邮箱"></el-input>
+        <el-form-item label="邮箱" prop="userMail">
+          <el-input v-model="addForm.userMail" placeholder="请输入员工邮箱"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button @click="cancelEdit('form')">取 消</el-button>
           <el-button @click="confirmEdit('form')" type="primary">确 定</el-button>
-          <el-button @click="confirmEdit('form')" type="info">批量导入</el-button>
+<!--          <el-button @click="confirmEdit('form')" type="info">批量导入</el-button>-->
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -184,13 +185,13 @@
         queryForm: {},
         addForm: {},
         rules: {
-          name: [
+          userName: [
             {required: true, message: '请输入员工名字'}
           ],
-          phone: [
+          userPhone: [
             {required: true, message: '请输入员工手机号'}
           ],
-          email: [
+          userMail: [
             {required: true, message: '请输入员工邮箱'}
           ]
         },
@@ -206,6 +207,7 @@
       ...mapState([
         'userModule',
         'roleModule',
+        'loading'
       ]),
       userList() {
         return this.userModule.userList;
@@ -223,6 +225,7 @@
         getAllUser: 'userModule/getAllUser',
         changeStatus: 'userModule/changeStatus',
         saveRoleUser: 'roleModule/saveRoleUser',
+        deleteRoleUser: 'roleModule/delRoleUser',
       }),
       searchUser() {
         this.getUserList(this.queryForm);
@@ -235,7 +238,7 @@
       },
       editUser(row) {
         this.addVisible = true;
-        console.log(row);
+        this.addForm = {...row};
       },
       //改变用户状态
       transferStatus(row) {
@@ -280,14 +283,47 @@
         })
       },
       // 删除用户
-      delUser() {},
+      delUser() {
+        this.$confirm("确定删除这个用户的信息？","提示",{
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: "warning"
+        }).then(() => {
+
+        }).catch((err) => {
+          console.log(err);
+          this.$notify.info({
+            title: '取消',
+            message: '已取消删除'
+          });
+        });
+      },
       // 增加角色用户
       addRoleUser() {
         this.getAllUser();
         this.addRoleUserVisible = true;
       },
       // 删除角色用户
-      delRoleUser() {},
+      delRoleUser(row) {
+        this.$confirm("确定取消该用户与角色的关联？","提示",{
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: "warning"
+        }).then(() => {
+          this.deleteRoleUser({
+            roleId: this.$route.query.roleId,
+            userId: row.id,
+          }).then(() => {
+            this.$emit('loadPage');
+          });
+        }).catch((err) => {
+          console.log(err);
+          this.$notify.info({
+            title: '取消',
+            message: '已取消删除'
+          });
+        });
+      },
       // 选择用户添加进某个角色
       choseUser(row) {
         let roleId = this.$route.query.roleId || 0;

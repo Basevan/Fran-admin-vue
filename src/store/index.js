@@ -110,7 +110,7 @@ const filterRouter = (routers) => {
 export const hasPermission = (path,permissionList) => {
   let flag = false;
   permissionList.forEach(permission => {
-    if (path === permission) {
+    if (path + '/list' === permission) {
       flag = true;
     }
   });

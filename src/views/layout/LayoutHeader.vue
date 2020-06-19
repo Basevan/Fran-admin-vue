@@ -16,10 +16,10 @@
           class="user-avater">
         </el-image>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="a">个人中心</el-dropdown-item>
-          <el-dropdown-item command="b">更换账号</el-dropdown-item>
-          <el-dropdown-item command="c">注销</el-dropdown-item>
-          <el-dropdown-item command="d">退出</el-dropdown-item>
+          <el-dropdown-item command="a"><label @click="personalCenter">个人中心</label></el-dropdown-item>
+<!--          <el-dropdown-item command="b">更换账号</el-dropdown-item>-->
+<!--          <el-dropdown-item command="c">注销</el-dropdown-item>-->
+          <el-dropdown-item command="d"><label @click="handleLoginOut">退出</label></el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
 <!--			<el-button-->
@@ -84,18 +84,24 @@
 		methods: {
 			...mapMutations({
 				setCollapse: 'setCollapse',
-        getUserName: 'userModule/getUserName',
 			}),
       ...mapActions({
-
+        getUserName: 'userModule/getUserName',
       }),
 			/**
 			 * 退出登录
 			 */
 			async handleLoginOut() {
-			  this.$router.push('login');
+			  this.$router.push('/login');
 				// window.location.href = `${this.$store.state.manageLoginUrl}/logout?redirectUrl=${window.location.href}`;
 			},
+
+      personalCenter() {
+        this.$message({
+          message: '暂无',
+          type: 'info'
+        });
+      },
 
 			/**
 			 * 导航栏折叠

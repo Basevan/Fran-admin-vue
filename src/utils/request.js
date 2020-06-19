@@ -59,13 +59,24 @@ const request = async (options) => {
         }
       }
 
-      // 没有权限
+      // 没有菜单权限
       if (data.code === 502) {
         router.replace('/noPermission');
         return {
-          code: 502,
+          code: 50,
           message: 'noPermission'
         };
+      }
+
+      // 没有操作权限
+      if (data.code === 503) {
+        Notification.error({
+          title: '错误',
+          message: data.msg
+        });
+        return {
+          data
+        }
       }
 
       setTimeout(() => {

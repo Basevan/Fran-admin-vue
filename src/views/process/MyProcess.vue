@@ -2,9 +2,9 @@
   <div>
     <div>
       <h3 style="text-align: center" @click="add()"> 暂未开放</h3>
-      {{apple}}
-      <h4 @click="getCounts()">获取</h4>
-      {{countA}}
+<!--      {{apple}}-->
+<!--      <h4 @click="getCounts()">获取</h4>-->
+<!--      {{countA}}-->
     </div>
     <!--      <div class="step-class">-->
     <!--        <el-steps :active="1">-->
@@ -54,7 +54,7 @@
       }
     },
     created() {
-      this.getMenu();
+      // this.getMenu();
     }
   }
 </script>
